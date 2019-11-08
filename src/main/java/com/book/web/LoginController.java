@@ -114,6 +114,7 @@ public class LoginController {
         }
     };
 
+    
     //配置404页面
      @RequestMapping("*")
      public String notFind(){
