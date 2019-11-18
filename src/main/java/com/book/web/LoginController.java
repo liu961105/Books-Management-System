@@ -33,7 +33,7 @@ public class LoginController {
     
 
     //负责处理login.html请求
-    @RequestMapping(value = {"/","/login.html"})
+    @RequestMapping(value = {"/","/login"})
     public String toLogin(HttpServletRequest request){
         request.getSession().invalidate();
         return "index";
@@ -77,7 +77,7 @@ public class LoginController {
                 }
         return res;
     };
-    @RequestMapping("admin_main.html")
+    @RequestMapping("adminMain")
     public ModelAndView toAdminMain(HttpServletResponse response) {
 
             return new ModelAndView("admin_main");

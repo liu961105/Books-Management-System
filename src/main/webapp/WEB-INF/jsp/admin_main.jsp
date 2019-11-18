@@ -23,7 +23,7 @@
     </style>
 
 </head>
-<body background="img/281289-106.jpg">
+<body background="img/index.jpg">
 <nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
     <div class="container-fluid">
         <div class="navbar-header" style="margin-left: 8%;margin-right: 1%">
@@ -37,7 +37,7 @@
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="allbooks.html">全部图书</a></li>
+                        <li><a href="book/allbooks">全部图书</a></li>
                         <li class="divider"></li>
                         <li><a href="book_add.html">增加图书</a></li>
                     </ul>
@@ -62,6 +62,7 @@
                         <li><a href="lendlist.html">借还日志</a></li>
                     </ul>
                 </li>
+                
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         供应商管理
