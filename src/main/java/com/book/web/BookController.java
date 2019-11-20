@@ -8,12 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @Controller
-@RequestMapping("book")
 public class BookController {
     private BookService bookService;
 
@@ -55,7 +53,7 @@ public class BookController {
 
     }
 
-    @RequestMapping("/allbooks")
+    @RequestMapping("/allbooks.html")
     public ModelAndView allBook(){
         ArrayList<Book> books=bookService.getAllBooks();
         ModelAndView modelAndView=new ModelAndView("admin_books");
@@ -69,10 +67,10 @@ public class BookController {
 
         if (res==1){
             redirectAttributes.addFlashAttribute("succ", "图书删除成功！");
-            return "redirect:allbooks";
+            return "redirect:/allbooks.html";
         }else {
             redirectAttributes.addFlashAttribute("error", "图书删除失败！");
-            return "redirect:allbooks";
+            return "redirect:/allbooks.html";
         }
     }
 
@@ -104,11 +102,11 @@ public class BookController {
         ArrayList<Book> books=bookService.getAllBooks();
         if (succ){
             redirectAttributes.addFlashAttribute("succ", "图书添加成功！");
-            return "redirect:/book/allbook";
+            return "redirect:/allbooks.html";
         }
         else {
             redirectAttributes.addFlashAttribute("succ", "图书添加失败！");
-            return "redirect:/book/allbook";
+            return "redirect:/allbooks.html";
         }
     }
 
@@ -142,11 +140,11 @@ public class BookController {
         boolean succ=bookService.editBook(book);
         if (succ){
             redirectAttributes.addFlashAttribute("succ", "图书修改成功！");
-            return "redirect:/book/allbook";
+            return "redirect:/allbooks.html";
         }
         else {
             redirectAttributes.addFlashAttribute("error", "图书修改失败！");
-            return "redirect:/book/allbook";
+            return "redirect:/allbooks.html";
         }
     }
 

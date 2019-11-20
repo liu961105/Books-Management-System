@@ -1,13 +1,18 @@
-<%@ page import="com.book.domain.Book" %>
+<%@ page import="com.book.domain.Book" %><%--
+  Created by IntelliJ IDEA.
+  User: 君行天下
+  Date: 2017/7/24
+  Time: 19:25
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@include file="/WEB-INF/jsp/taglib.jsp"%>
 <html>
 <head>
     <title>全部图书信息</title>
-    <link rel="stylesheet" href="${ctx}/css/bootstrap.min.css">
-    <script src="${ctx}/js/jquery-3.2.1.js"></script>
-    <script src="${ctx}/js/bootstrap.min.js" ></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/bootstrap.min.js" ></script>
     <style>
         body{
             background-color: rgb(240,242,245);
