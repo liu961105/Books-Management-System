@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 君行天下
-  Date: 2017/7/23
-  Time: 16:56
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -52,7 +45,7 @@
             window.location.href="login.html";
 </script>
 </c:if>
-<h2 style="text-align: center;font-family: 'Adobe 楷体 Std R';color: palevioletred">图 书 馆</h2>
+<h2 style="text-align: center;font-family: 'Adobe 楷体 Std R';color: palevioletred">图 书 馆 后 台 管 理 系 统</h2>
 <div style="float:right;" id="github_iframe"></div>
 <script>
     /**
@@ -182,10 +175,10 @@
     </ol>
     <div class="carousel-inner">
         <div class="item active">
-            <img src="img/index.jpg" style="width:100%" alt="第一张">
+            <img src="img/timg1.jpg" style="width:100%" alt="第一张">
         </div>
         <div class="item">
-            <img src="img/timg.jpg" style="width:100%" alt="第二张">
+            <img src="img/timg2.jpg" style="width:100%" alt="第二张">
         </div>
         <div class="item">
             <img src="img/timg3.jpg" style= "width:100%" alt="第三张">

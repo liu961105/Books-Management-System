@@ -5,7 +5,11 @@ import java.util.Date;
 
 public class ReaderInfo implements Serializable{
 
-    private int readerId;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int readerId;
     private String name;
     private String sex;
     private Date birth;

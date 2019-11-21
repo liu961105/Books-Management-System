@@ -1,11 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 君行天下
-  Date: 2017/7/31
-  Time: 8:09
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="taglib.jsp"%>
 <html>
 <head>
     <title>添加读者</title>
@@ -80,11 +74,6 @@
         <div class="panel-body">
             <form action="reader_add_do.html" method="post" id="readeredit" >
                 <div class="input-group">
-                    <span  class="input-group-addon">读者证号</span>
-                    <input  type="text" class="form-control" name="readerId" id="readerId" ">
-                </div>
-
-                <div class="input-group">
                     <span class="input-group-addon">姓名</span>
                     <input type="text" class="form-control" name="name" id="name"  >
                 </div>
@@ -110,8 +99,8 @@
                         return flag;
                     }
                     $("#readeredit").submit(function () {
-                        if($("#name").val()==''||$("#author").val()==''||$("#publish").val()==''||$("#isbn").val()==''||$("#introduction").val()==''||$("#language").val()==''||$("#price").val()==''||$("#pubdate").val()==''||$("#classId").val()==''||$("#pressmark").val()==''||$("#state").val()==''){
-                            alert("请填入完整读者信息！");
+                        if($("#name").val()==''){
+                            layer.msg("请填入完整读者信息！");
                             return mySubmit(false);
                         }
                     })
