@@ -21,10 +21,10 @@ public class BookController {
     }
 
     @RequestMapping("/querybook.html")
-    public ModelAndView queryBookDo(HttpServletRequest request,String searchWord){
-        boolean exist=bookService.matchBook(searchWord);
+    public ModelAndView queryBookDo(HttpServletRequest request,String searchWord,String searchISBN){
+        boolean exist=bookService.matchBook(searchWord,searchISBN);
         if (exist){
-            ArrayList<Book> books = bookService.queryBook(searchWord);
+            ArrayList<Book> books = bookService.queryBook(searchWord,searchISBN);
             ModelAndView modelAndView = new ModelAndView("admin_books");
             modelAndView.addObject("books",books);
             return modelAndView;
@@ -39,10 +39,10 @@ public class BookController {
 
     }
     @RequestMapping("/reader_querybook_do.html")
-    public String readerQueryBookDo(HttpServletRequest request,String searchWord,RedirectAttributes redirectAttributes){
-        boolean exist=bookService.matchBook(searchWord);
+    public String readerQueryBookDo(HttpServletRequest request,String searchWord,String searchISBN,RedirectAttributes redirectAttributes){
+        boolean exist=bookService.matchBook(searchWord,searchISBN);
         if (exist){
-            ArrayList<Book> books = bookService.queryBook(searchWord);
+            ArrayList<Book> books = bookService.queryBook(searchWord,searchISBN);
             redirectAttributes.addFlashAttribute("books", books);
             return "redirect:/reader_querybook.html";
         }

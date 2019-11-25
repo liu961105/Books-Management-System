@@ -49,7 +49,7 @@ public class LendController {
 
 
     }
-
+    //归还图书
     @RequestMapping("/returnbook.html")
     public String bookReturn(HttpServletRequest request,RedirectAttributes redirectAttributes){
         long bookId=Integer.parseInt(request.getParameter("bookId"));

@@ -16,8 +16,8 @@ public class BookService {
         this.bookDao = bookDao;
     }
 
-    public ArrayList<Book> queryBook(String searchWord){
-        return  bookDao.queryBook(searchWord);
+    public ArrayList<Book> queryBook(String searchWord,String searchISBN){
+        return  bookDao.queryBook(searchWord, searchISBN);
     }
 
     public ArrayList<Book> getAllBooks(){
@@ -28,7 +28,7 @@ public class BookService {
         return bookDao.deleteBook(bookId);
     }
 
-    public boolean matchBook(String searchWord){
+    public boolean matchBook(String searchWord,String searchISBN){
         return bookDao.matchBook(searchWord)>0;
     }
 

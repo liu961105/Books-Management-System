@@ -1,11 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@include file="taglib.jsp"%>
 <html>
 <head>
 <title>全部读者</title>
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<script src="js/jquery-3.2.1.js"></script>
-<script src="js/bootstrap.min.js"></script>
 <style>
 body {
 	background-color: rgb(240, 242, 245);

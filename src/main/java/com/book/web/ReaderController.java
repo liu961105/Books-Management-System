@@ -69,7 +69,7 @@ public class ReaderController {
 		}
 
 	}
-
+	//读者功能
 	@RequestMapping("/reader_info.html")
 	public ModelAndView toReaderInfo(HttpServletRequest request) {
 		ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute("readercard");
@@ -87,21 +87,18 @@ public class ReaderController {
 		modelAndView.addObject("readerInfo", readerInfo);
 		return modelAndView;
 	}
+	
 	//跳转到二维码
 	@RequestMapping("reader_show")
-	@ResponseBody
 	public ModelAndView readInfoShow(HttpServletRequest request){
 		int readerId = Integer.parseInt(request.getParameter("readerId"));
 		ReaderInfo readerInfo = readerInfoService.getReaderInfo(readerId);
 		int text = readerInfo.getReaderId();
-		String destPath = "E:\\img";
-		String imgPath = "C:\\Users\\13212\\Desktop\\timg4.jpg";  
+		String destPath = "E:\\img\\"+readerInfo.getName()+readerInfo.getReaderId()+".jpg";
 		//取出id
-	
 			try {
-				QRCodeUtil.encode(text+"",imgPath , destPath);
+				QRCodeUtil.encode(text+"" , destPath);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		
@@ -233,16 +230,24 @@ public class ReaderController {
 			e.printStackTrace();
 		}
 		//生成一个UUID 
-        String uuid = UUID.randomUUID().toString().replaceAll("-","");
 		ReaderInfo readerInfo = new ReaderInfo();
 		readerInfo.setAddress(address);
 		readerInfo.setBirth(nbirth);
 		readerInfo.setName(name);
-	//	readerInfo.setReaderId(uuid);
 		readerInfo.setTelcode(telcode);
 		readerInfo.setSex(sex);
+		//添加读者信息
 		boolean succ = readerInfoService.addReaderInfo(readerInfo);
-		boolean succc = readerCardService.addReaderCard(readerInfo);
+		ReaderInfo entity = readerInfoService.findByName( name);
+		boolean succc = readerCardService.addReaderCard(entity);
+		int text = entity.getReaderId();
+		String destPath = "E:\\img\\"+readerInfo.getName()+readerInfo.getReaderId()+".jpg";
+		//取出id
+			try {
+				QRCodeUtil.encode(text+"" , destPath);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		ArrayList<ReaderInfo> readers = readerInfoService.readerInfos();
 		if (succ && succc) {
 			redirectAttributes.addFlashAttribute("succ", "添加读者信息成功！");

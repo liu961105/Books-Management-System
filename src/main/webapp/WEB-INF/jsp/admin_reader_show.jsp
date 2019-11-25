@@ -1,8 +1,11 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="taglib.jsp"%>
 <html>
 <head>
-    <title>添加读者</title>
+    <title>查看读者二维码《 ${readerInfo.readerId}》</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/bootstrap.min.js" ></script>
     <style>
         body{
             background-color: rgb(240,242,245);
@@ -63,44 +66,26 @@
     </div>
 </nav>
 
-<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 25%">
+<div class="col-xs-6 col-md-offset-3" style="position: relative;top: 10%">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">添加读者</h3>
+            <h3 class="panel-title">查看读者二维码信息《 ${readerInfo.readerId}》</h3>
         </div>
         <div class="panel-body">
-            <form action="reader_add_do.html" method="post" id="readeredit" >
+            <form action="reader_edit_do.html?id=${readerInfo.readerId}" method="post" id="readeredit" >
+
                 <div class="input-group">
-                    <span class="input-group-addon">姓名</span>
-                    <input type="text" class="form-control" name="name" id="name"  >
+                    <span  class="input-group-addon">读者证号</span>
+                    <input readonly="readonly" type="text" class="form-control" name="readerId" id="readerId" value="${readerInfo.readerId}">
                 </div>
                 <div class="input-group">
-                    <span  class="input-group-addon">性别</span>
-                    <input type="text" class="form-control" name="sex" id="sex" >
+                   <img src="img/lzn1501014107.jpg\" style="width:100%" id="thisImg">
                 </div>
-                <div class="input-group">
-                    <span class="input-group-addon">生日</span>
-                    <input type="text" class="form-control" name="birth" id="birth"  >
-                </div>
-                <div class="input-group">
-                    <span  class="input-group-addon">地址</span>
-                    <input type="text" class="form-control" name="address" id="address"  >
-                </div>
-                <div class="input-group">
-                    <span class="input-group-addon">电话</span>
-                    <input type="text" class="form-control" name="telcode" id="telcode"  >
-                </div>
-                <input type="submit" value="保存并生成二维码" class="btn btn-success btn-sm" class="text-left">
                 <script>
-                    function mySubmit(flag){
-                        return flag;
-                    }
-                    $("#readeredit").submit(function () {
-                        if($("#name").val()==''){
-                            layer.msg("请填入完整读者信息！");
-                            return mySubmit(false);
-                        }
-                    })
+                   $(function(){
+                //   var thisImgURL = "E:\img\"+"${readerInfo.name}"+"${readerInfo.readerId}";
+                   	//	$('#thisImg').attr("src",thisImgURL)
+                   })
                 </script>
             </form>
         </div>

@@ -1,12 +1,10 @@
 <%@ page import="com.book.domain.Book" %>
+<%@include file="taglib.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>全部图书信息</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <script src="js/jquery-3.2.1.js"></script>
-    <script src="js/bootstrap.min.js" ></script>
     <style>
         body{
             background-color: rgb(240,242,245);
@@ -71,7 +69,7 @@
 <div style="padding: 70px 550px 10px">
     <form   method="post" action="querybook.html" class="form-inline"  id="searchform">
         <div class="input-group">
-           <input type="text" placeholder="输入图书名" class="form-control" id="search" name="searchWord" class="form-control">
+           <input type="text" placeholder="图书名/ISBN" class="form-control" id="search" name="searchWord" class="form-control">
             <span class="input-group-btn">
                             <input type="submit" value="搜索" class="btn btn-default">
             </span>
@@ -84,9 +82,13 @@
         $("#searchform").submit(function () {
             var val=$("#search").val();
             if(val==''){
-                alert("请输入关键字");
+                layer.msg("请输入图书名或扫描ISBN");
                 return mySubmit(false);
             }
+        })
+        //input 框失去焦点事件
+        $('#search').blur(function(){
+        	$("#searchform").submit();
         })
     </script>
 </div>

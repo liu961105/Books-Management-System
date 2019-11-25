@@ -1,6 +1,8 @@
 package com.book.dao;
 
 import com.book.domain.ReaderInfo;
+
+import org.omg.CORBA.StringHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowCallbackHandler;
@@ -21,6 +23,7 @@ public class ReaderInfoDao {
     private final static String GET_READER_INFO_SQL="SELECT * FROM reader_info where reader_id = ? ";
     private final static String UPDATE_READER_INFO="UPDATE reader_info set name = ? ,sex = ? ,birth = ? ,address = ? ,telcode = ? where reader_id = ? ";
     private final static String ALL_READER_INFO_SQL="SELECT * FROM reader_info";
+    private	final static String FIND_BY_NAME_SQL = "SELECT * FROM reader_info where name = ? ";
 
 
     public ArrayList<ReaderInfo> getAllReaderInfo() {
@@ -61,6 +64,23 @@ public class ReaderInfoDao {
             }
         });
         return reader;
+    }
+    /*
+     * 根据name查询
+     */
+    public ReaderInfo findByName(String name){
+    	 final ReaderInfo reader=new ReaderInfo();
+    	   jdbcTemplate.query(FIND_BY_NAME_SQL, new Object[]{name}, new RowCallbackHandler() {
+               public void processRow(ResultSet resultSet) throws SQLException {
+                   reader.setAddress(resultSet.getString("address"));
+                   reader.setBirth(resultSet.getDate("birth"));
+                   reader.setName(resultSet.getString("name"));
+                   reader.setReaderId(resultSet.getInt("reader_id"));
+                   reader.setSex(resultSet.getString("sex"));
+                   reader.setTelcode(resultSet.getString("telcode"));
+               }
+           });
+           return reader;
     }
 
     public int deleteReaderInfo(int readerId){

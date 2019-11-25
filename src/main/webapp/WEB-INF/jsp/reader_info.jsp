@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 君行天下
-  Date: 2017/7/31
-  Time: 11:40
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -83,7 +76,7 @@
         <div class="panel-body">
             <table class="table table-hover">
                 <tr>
-                    <th width="20%">读者证号</th>
+                    <th width="20%">我的读者证号</th>
                     <td>${readerinfo.readerId}</td>
                 </tr>
                 <tr>

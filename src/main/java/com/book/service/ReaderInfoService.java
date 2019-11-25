@@ -32,4 +32,8 @@ public class ReaderInfoService {
     public boolean addReaderInfo(ReaderInfo readerInfo){
         return  readerInfoDao.addReaderInfo(readerInfo)>0;
     }
+    public ReaderInfo findByName(String name){
+    	return readerInfoDao.findByName(name);
+    }
 }
+
