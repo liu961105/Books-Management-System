@@ -107,6 +107,7 @@ public class ReaderInfoDao {
 
         return jdbcTemplate.update(ADD_READER_INFO_SQL,new Object[]{readerId,name,sex,birth,address,telcode});
     }
+    
 
 
 }

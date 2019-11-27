@@ -1,0 +1,55 @@
+package com.book.web;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.book.domain.Admin;
+import com.book.domain.ResultEntity;
+import com.book.service.AdminService;
+
+@Controller
+@RequestMapping("admin")
+public class AdminController extends BaseController {
+	@Autowired
+	private AdminService adminService;
+
+	/*
+	 * 管理员列表
+	 */
+	@RequestMapping("allAdmin")
+	public ModelAndView allBooks() {
+		List<Admin> admins = adminService.getAllAdmin();
+		ModelAndView modelAndView = new ModelAndView("admin_list");
+		modelAndView.addObject("admins", admins);
+		return modelAndView;
+	}
+
+	@RequestMapping("toAddadmin")
+	public ModelAndView toAddAdmin(HttpServletRequest request) {
+		return new ModelAndView("admin_add");
+
+	}
+/*
+ * 添加管理员
+ */
+	@RequestMapping("adminSave")
+	public String adminSave(Admin admin, RedirectAttributes redirectAttributes) {
+		int addAdmin = adminService.addAdmin(admin);
+		if (addAdmin > 0) {
+			redirectAttributes.addFlashAttribute("succ", "管理员添加成功！");
+			return "redirect:/admin/allAdmin";
+		} else {
+			redirectAttributes.addFlashAttribute("succ", "管理员添加失败！");
+			return "redirect:/admin/allAdmin";
+		}
+	}
+}

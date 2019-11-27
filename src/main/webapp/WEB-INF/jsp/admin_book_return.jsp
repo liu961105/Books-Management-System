@@ -2,7 +2,7 @@
 <%@include file="taglib.jsp"%>
 <html>
 <head>
-<title>借阅《 ${book.name}》</title>
+<title>归还《 ${book.name}》</title>
 <style>
 body {
 	background-color: rgb(240, 242, 245);
@@ -47,17 +47,14 @@ body {
 						<ul class="dropdown-menu">
 							<li><a href="lendlist.html">借还日志</a></li>
 						</ul></li>
-						<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        管理员管理
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="admin/allAdmin">全部管理员</a></li>
-                         <li class="divider"></li>
-                         <li><a href="admin/toAddadmin">增加管理员</a></li>
-                    </ul>
-                </li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> 管理员管理 <b class="caret"></b>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="admin/allAdmin">全部管理员</a></li>
+							<li class="divider"></li>
+							<li><a href="admin/toAddadmin">增加管理员</a></li>
+						</ul></li>
 					<li><a href="admin_repasswd.html"> 密码修改 </a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -74,10 +71,10 @@ body {
 		style="position: relative;top: 25%">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">借阅《 ${book.name}》</h3>
+				<h3 class="panel-title">归还《 ${book.name}》</h3>
 			</div>
 			<div class="panel-body">
-				<form action="lendbookdo.html?id=${book.bookId}" method="post"
+				<form action="returnbook.html?id=${book.bookId}" method="post"
 					id="lendbook">
 					<div class="input-group">
 						<span class="input-group-addon">书名</span> <input type="text"
@@ -88,46 +85,39 @@ body {
 					<div class="input-group">
 						<span class="input-group-addon">读者证号</span> <input type="text"
 							class="form-control" name="readerId" id="readerId"
-							placeholder="借阅人读者证号">
+							value="${lend.readerId}" readonly="readonly">
 					</div>
 					<div class="input-group">
-						<span class="input-group-addon">读者姓名</span> <input type="text"
-							class="form-control" name="readName" id="readName"
-							placeholder="读者姓名">
+						<span class="input-group-addon">读者二维码</span> <input type="text"
+							class="form-control" id="checkRead" placeholder="请扫描归还人二维码">
 					</div>
-					<div class="input-group">
-						<span class="input-group-addon">借阅天数</span> <input type="text"
-							class="form-control" name="borrowingDay" placeholder="借阅天数">
-					</div>
-					<div class="input-group">
-						<span class="input-group-addon">到期归还时间</span> <input type="text"
-							class="form-control" name="returnDaty" placeholder="到期归还时间">
-					</div>
-					<br /> <input type="submit" value="确定"
+					<br /> <input type="submit" value="确定归还"
 						class="btn btn-success btn-sm" class="text-left">
 					<script type="text/javascript">
 						function mySubmit(flag) {
 							return flag;
 						}
 						$("#lendbook").submit(function() {
-							if ($("#name").val() == '' || $("#readerId").val() == '') {
-								layer.msg("请填入完整图书信息！", {
+							if ($("#readerId").val() != $("#checkRead").val()) {
+								layer.msg("归还人于与借出人不一致,无法归还", {
 									icon : 7
-								});
+								})
 								return mySubmit(false);
 							}
 						})
-						$("#readerId").change(function() {
-							var readerId = $("#readerId").val()
-							$.post("getReadName", {
-								"readerId" : readerId
-							}, function(res) {
-								var data = res.data;
-								if (res.success == "1") {
-									$("#readName").val(data.name);
-								}
-							})
-						});
+					
+					
+						/* 	$("#readerId").change(function() {
+								var readerId = $("#readerId").val()
+								$.post("getReadName", {
+									"readerId" : readerId
+								}, function(res) {
+									var data = res.data;
+									if (res.success == "1") {
+										$("#readName").val(data.name);
+									}
+								})
+							}); */
 					</script>
 				</form>
 			</div>

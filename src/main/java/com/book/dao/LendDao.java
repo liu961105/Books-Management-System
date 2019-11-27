@@ -27,13 +27,16 @@ public class LendDao {
 
     private final static String BOOK_RETURN_SQL_TWO="UPDATE book_info SET state = 1 WHERE book_id = ? ";
 
-    private final static String BOOK_LEND_SQL_ONE="INSERT INTO lend_list (book_id,reader_id,lend_date) VALUES ( ? , ? , ? )";
+    private final static String BOOK_LEND_SQL_ONE="INSERT INTO lend_list (book_id,reader_id,lend_date,borrowingDay) VALUES ( ? , ? , ? ,?)";
 
     private final static String BOOK_LEND_SQL_TWO="UPDATE book_info SET state = 0 WHERE book_id = ? ";
 
     private final static String LEND_LIST_SQL="SELECT * FROM lend_list";
+    
+    private final static String GET_READID_SQL = "select * from lend_list where book_id = ? ";
 
     private final static String MY_LEND_LIST_SQL="SELECT * FROM lend_list WHERE reader_id = ? ";
+    
 
     public int bookReturnOne(long bookId){
         return  jdbcTemplate.update(BOOK_RETURN_SQL_ONE,new Object[]{df.format(new Date()),bookId});
@@ -41,8 +44,8 @@ public class LendDao {
     public int bookReturnTwo(long bookId){
         return jdbcTemplate.update(BOOK_RETURN_SQL_TWO,new Object[]{bookId});
     }
-    public int bookLendOne(long bookId,int readerId){
-        return  jdbcTemplate.update(BOOK_LEND_SQL_ONE,new Object[]{bookId,readerId,df.format(new Date())});
+    public int bookLendOne(long bookId,int readerId,String borrowingDay){
+        return  jdbcTemplate.update(BOOK_LEND_SQL_ONE,new Object[]{bookId,readerId,df.format(new Date()),borrowingDay});
     }
     public int bookLendTwo(long bookId){
         return  jdbcTemplate.update(BOOK_LEND_SQL_TWO,new Object[]{bookId});
@@ -88,4 +91,18 @@ public class LendDao {
         return list;
 
     }
+	public Lend getReadId(Long bookId) {
+		   Lend lend=new Lend();
+		 jdbcTemplate.query(GET_READID_SQL,new Object[]{bookId},new RowCallbackHandler() {
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+				rs.beforeFirst();
+				 while (rs.next()){
+	                    lend.setReaderId(rs.getInt("reader_id"));
+				 }
+			}
+		});
+		 return lend;
+	}
+	
 }

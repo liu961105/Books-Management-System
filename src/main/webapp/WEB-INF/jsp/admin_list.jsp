@@ -3,7 +3,7 @@
 <%@include file="taglib.jsp"%>
 <html>
 <head>
-<title>全部读者</title>
+<title>全部</title>
 <style>
 body {
 	background-color: rgb(240, 242, 245);
@@ -14,7 +14,7 @@ body {
 <body>
 	<c:if test="${!empty info}">
 		<script>alert("${info}");
-			window.location.href = "allreaders.html"
+			window.location.href = "${ctx}/admin/allAdmin"
 		</script>
 	</c:if>
 	<nav
@@ -26,7 +26,7 @@ body {
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-left">
-				 <li class="dropdown">
+					 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         图书管理
                         <b class="caret"></b>
@@ -45,13 +45,13 @@ body {
 						<ul class="dropdown-menu">
 							<li><a href="allreaders.html">全部读者</a></li>
 							<li class="divider"></li>
-							<li><a href="reader_add.html">增加读者</a></li>
+							<li><a href="${ctx}/reader_add.html">增加读者</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"> 借还管理 <b class="caret"></b>
 					</a>
 						<ul class="dropdown-menu">
-							<li><a href="lendlist.html">借还日志</a></li>
+							<li><a href="${ctx}/lendlist.html">借还日志</a></li>
 						</ul></li>
 						<li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -59,12 +59,12 @@ body {
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="admin/allAdmin">全部管理员</a></li>
+                        <li><a href="${ctx}/admin/allAdmin">全部管理员</a></li>
                          <li class="divider"></li>
-                          <li><a href="admin/toAddadmin">增加管理员</a></li>
+                            <li><a href="${ctx}/admin/toAddadmin">增加管理员</a></li>
                     </ul>
                 </li>
-					<li><a href="admin_repasswd.html"> 密码修改 </a></li>
+					<li><a href="${ctx}/admin_repasswd.html"> 密码修改 </a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="login.html"><span
@@ -102,35 +102,31 @@ body {
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>读者号</th>
+						<th>管理员编号</th>
 						<th>姓名</th>
 						<th>性别</th>
-						<th>生日</th>
+						<th>年龄</th>
 						<th>地址</th>
 						<th>电话</th>
 						<th>编辑</th>
 						<th>删除</th>
-						<th>二维码</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${readers}" var="reader">
+					<c:forEach items="${admins}" var="admin">
 						<tr>
-							<td><c:out value="${reader.readerId}"></c:out></td>
-							<td><c:out value="${reader.name}"></c:out></td>
-							<td><c:out value="${reader.sex}"></c:out></td>
-							<td><c:out value="${reader.birth}"></c:out></td>
-							<td><c:out value="${reader.address}"></c:out></td>
-							<td><c:out value="${reader.telcode}"></c:out></td>
+							<td><c:out value="${admin.adminId}"></c:out></td>
+							<td><c:out value="${admin.adminName}"></c:out></td>
+							<td><c:out value="${admin.adminage}"></c:out></td>
+							<td><c:out value=""></c:out></td>
+							<td><c:out value=""></c:out></td>
+								<td><c:out value=""></c:out></td>
 							<td><a
 								href="reader_edit.html?readerId=<c:out value="${reader.readerId}"></c:out>"><button
 										type="button" class="btn btn-info btn-xs">编辑</button></a></td>
 							<td><a
 								href="reader_delete.html?readerId=<c:out value="${reader.readerId}"></c:out>"><button
 										type="button" class="btn btn-danger btn-xs">删除</button></a></td>
-							<td><a
-								href="reader_show?readerId=<c:out value="${reader.readerId}"></c:out>"><button
-										type="button" class="btn btn-info btn-xs">查看二维码</button></a></td>			
 						</tr>
 					</c:forEach>
 				</tbody>

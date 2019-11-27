@@ -2,7 +2,11 @@ package com.book.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-
+/**
+ * 借阅
+ * @author LZN
+ *
+ */
 public class Lend implements Serializable {
 
     private long sernum;
@@ -10,6 +14,7 @@ public class Lend implements Serializable {
     private int readerId;
     private Date lendDate;
     private Date backDate;
+    private String borrowingDay;
 
     public void setReaderId(int readerId) {
         this.readerId = readerId;
@@ -50,4 +55,12 @@ public class Lend implements Serializable {
     public long getSernum() {
         return sernum;
     }
+
+	public String getBorrowingDay() {
+		return borrowingDay;
+	}
+
+	public void setBorrowingDay(String borrowingDay) {
+		this.borrowingDay = borrowingDay;
+	}
 }
