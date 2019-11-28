@@ -11,7 +11,7 @@ body {
 
 </head>
 <body>
-	<nav
+	<%-- <nav
 		style="position:fixed;z-index: 999;width: 100%;background-color: #fff"
 		class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
@@ -20,19 +20,16 @@ body {
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav navbar-left">
-					 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        图书管理
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="${ctx }/allbooks.html">全部图书</a></li>
-                        <li><a href="${ctx }/book_add.html">增加图书</a></li>
-                           <li class="divider"></li>
-                           <li><a href="${ctx}/classInfo/getClassInfo">全部分类</a></li>
-                        <li><a href="${ctx }/classInfo/toAddClassInfo">分类维护</a></li>
-                    </ul>
-                </li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> 图书管理 <b class="caret"></b>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="${ctx }/allbooks.html">全部图书</a></li>
+							<li><a href="${ctx }/book_add.html">增加图书</a></li>
+							<li class="divider"></li>
+							<li><a href="${ctx}/classInfo/getClassInfo">全部分类</a></li>
+							<li><a href="${ctx }/classInfo/toAddClassInfo">分类维护</a></li>
+						</ul></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"> 读者管理 <b class="caret"></b>
 					</a>
@@ -47,17 +44,14 @@ body {
 						<ul class="dropdown-menu">
 							<li><a href="lendlist.html">借还日志</a></li>
 						</ul></li>
-						<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        管理员管理
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="admin/allAdmin">全部管理员</a></li>
-                         <li class="divider"></li>
-                         <li><a href="admin/toAddadmin">增加管理员</a></li>
-                    </ul>
-                </li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> 管理员管理 <b class="caret"></b>
+					</a>
+						<ul class="dropdown-menu">
+							<li><a href="admin/allAdmin">全部管理员</a></li>
+							<li class="divider"></li>
+							<li><a href="admin/toAddadmin">增加管理员</a></li>
+						</ul></li>
 					<li><a href="admin_repasswd.html"> 密码修改 </a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -68,7 +62,7 @@ body {
 				</ul>
 			</div>
 		</div>
-	</nav>
+	</nav> --%>
 
 	<div class="col-xs-6 col-md-offset-3"
 		style="position: relative;top: 25%">
@@ -101,11 +95,19 @@ body {
 					</div>
 					<div class="input-group">
 						<span class="input-group-addon">到期归还时间</span> <input type="text"
-							class="form-control" name="returnDaty" placeholder="到期归还时间">
+							class="form-control" name="returnDaty" id="returnDaty"
+							placeholder="到期归还时间">
 					</div>
 					<br /> <input type="submit" value="确定"
 						class="btn btn-success btn-sm" class="text-left">
 					<script type="text/javascript">
+						layui.use('laydate', function() {
+							var laydate = layui.laydate;
+							laydate.render({
+								elem : '#returnDaty',
+								trigger : 'click'
+							});
+						});
 						function mySubmit(flag) {
 							return flag;
 						}

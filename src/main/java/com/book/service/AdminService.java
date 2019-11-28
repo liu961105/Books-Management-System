@@ -24,4 +24,19 @@ public class AdminService {
 		return adminDao.addAdmin(admin);
 	}
 
+	public boolean deleteAdmin(int adminId) {
+		return adminDao.deleteAdmin(adminId)>0;
+		
+	}
+
+	public Admin findByAdminId(Integer adminId) {
+		 
+		return adminDao.findByAdminId(adminId);
+	}
+
+	public boolean editAdmin(Admin admin) {
+		
+		return adminDao.editAdmin(admin)>0;
+	}
+
 }

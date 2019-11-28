@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
+<%-- <nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
     <div class="container-fluid">
         <div class="navbar-header" style="margin-left: 8%;margin-right: 1%">
             <a class="navbar-brand" href="admin_main.html">图书管理系统</a>
@@ -77,7 +77,7 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav> --%>
 
 
 <div style="padding: 70px 550px 10px">

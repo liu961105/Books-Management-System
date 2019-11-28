@@ -38,9 +38,10 @@ public class AdminController extends BaseController {
 		return new ModelAndView("admin_add");
 
 	}
-/*
- * 添加管理员
- */
+
+	/*
+	 * 添加管理员
+	 */
 	@RequestMapping("adminSave")
 	public String adminSave(Admin admin, RedirectAttributes redirectAttributes) {
 		int addAdmin = adminService.addAdmin(admin);
@@ -52,4 +53,48 @@ public class AdminController extends BaseController {
 			return "redirect:/admin/allAdmin";
 		}
 	}
+
+	@RequestMapping("deleteAdmin")
+	@ResponseBody
+	public ResultEntity deleteAdmin(int adminId) {
+		ResultEntity res = new ResultEntity();
+		try {
+			boolean success = adminService.deleteAdmin(adminId);
+			if (success) {
+				res.setSuccess(SUCCESS);
+				res.setMessage(DELETE_SUCCESS);
+			} else {
+				res.setSuccess(ERROR);
+				res.setMessage(DELETE_ERROR);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setMessage(DELETE_ERROR + e.getMessage());
+		}
+		return res;
+	}
+
+	@RequestMapping("toEditAdmin")
+	public ModelAndView toEditAdmin(Integer adminId) {
+		Admin admin = adminService.findByAdminId(adminId);
+		ModelAndView modelAndView = new ModelAndView("admin_edit");
+		modelAndView.addObject("admin", admin);
+		return modelAndView;
+	}
+
+	@RequestMapping("adminEdit")
+	public String adminEdit(Admin admin, RedirectAttributes redirectAttributes) {
+		try {
+			boolean success = adminService.editAdmin(admin);
+			if (success) {
+				redirectAttributes.addAttribute("succ", "修改成功！");
+			} else {
+				redirectAttributes.addAttribute("error", "修改失败");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/admin/allAdmin";
+	}
+
 }

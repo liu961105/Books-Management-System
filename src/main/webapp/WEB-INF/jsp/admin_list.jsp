@@ -17,64 +17,6 @@ body {
 			window.location.href = "${ctx}/admin/allAdmin"
 		</script>
 	</c:if>
-	<nav
-		style="position:fixed;z-index: 999;width: 100%;background-color: #fff"
-		class="navbar navbar-default" role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header" style="margin-left: 8%;margin-right: 1%">
-				<a class="navbar-brand" href="admin_main.html">图书管理系统</a>
-			</div>
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav navbar-left">
-					 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        图书管理
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="${ctx }/allbooks.html">全部图书</a></li>
-                        <li><a href="${ctx }/book_add.html">增加图书</a></li>
-                           <li class="divider"></li>
-                           <li><a href="${ctx}/classInfo/getClassInfo">全部分类</a></li>
-                        <li><a href="${ctx }/classInfo/toAddClassInfo">分类维护</a></li>
-                    </ul>
-                </li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> 读者管理 <b class="caret"></b>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a href="allreaders.html">全部读者</a></li>
-							<li class="divider"></li>
-							<li><a href="${ctx}/reader_add.html">增加读者</a></li>
-						</ul></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> 借还管理 <b class="caret"></b>
-					</a>
-						<ul class="dropdown-menu">
-							<li><a href="${ctx}/lendlist.html">借还日志</a></li>
-						</ul></li>
-						<li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        管理员管理
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="${ctx}/admin/allAdmin">全部管理员</a></li>
-                         <li class="divider"></li>
-                            <li><a href="${ctx}/admin/toAddadmin">增加管理员</a></li>
-                    </ul>
-                </li>
-					<li><a href="${ctx}/admin_repasswd.html"> 密码修改 </a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="login.html"><span
-							class="glyphicon glyphicon-user"></span>&nbsp;${admin.adminId}，已登录</a></li>
-					<li><a href="logout.html"><span
-							class="glyphicon glyphicon-log-in"></span>&nbsp;退出</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
 	<div style="position: relative;top: 15%">
 		<c:if test="${!empty succ}">
 			<div class="alert alert-success alert-dismissable">
@@ -117,16 +59,12 @@ body {
 						<tr>
 							<td><c:out value="${admin.adminId}"></c:out></td>
 							<td><c:out value="${admin.adminName}"></c:out></td>
+							<td><c:out value="${admin.gender }"></c:out></td>
 							<td><c:out value="${admin.adminage}"></c:out></td>
-							<td><c:out value=""></c:out></td>
-							<td><c:out value=""></c:out></td>
-								<td><c:out value=""></c:out></td>
-							<td><a
-								href="reader_edit.html?readerId=<c:out value="${reader.readerId}"></c:out>"><button
-										type="button" class="btn btn-info btn-xs">编辑</button></a></td>
-							<td><a
-								href="reader_delete.html?readerId=<c:out value="${reader.readerId}"></c:out>"><button
-										type="button" class="btn btn-danger btn-xs">删除</button></a></td>
+							<td><c:out value="${admin.address }"></c:out></td>
+							<td><c:out value="${admin.phone }"></c:out></td>
+							<td><button 	type="button" class="btn btn-info btn-xs editBtn" data-pkid = "${ admin.adminId}">编辑</button></td>
+							<td><button type="button" class="btn btn-danger btn-xs deleteBtn" data-pkid  = "${admin.adminId}">删除</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -134,4 +72,32 @@ body {
 		</div>
 	</div>
 </body>
+<script type="text/javascript">
+	$(".deleteBtn").on("click",function(res){
+		var thisId = $(this).data('pkid');
+		layer.open({
+			content : '您确认删除该数据吗?',
+			btn : [ '确认', '取消' ],
+			yes : function(index, layero) {
+				$.post("${ctx}/admin/deleteAdmin", {
+					"adminId" : thisId
+				}, function(res) {
+					if (res.success == "1") {
+						layer.msg("刪除成功！", {
+							icon : 6
+						})
+						window.location.href = "${ctx}/admin/allAdmin";
+					}
+				})
+			},
+			btn2 : function(index, layero) {
+				//取消按钮
+			}
+		});
+	})
+	$(".editBtn").on('click',function(){
+		var thisId = $(this).data('pkid');
+		window.location.href = "${ctx}/admin/toEditAdmin?adminId="+thisId;
+	})
+</script>
 </html>

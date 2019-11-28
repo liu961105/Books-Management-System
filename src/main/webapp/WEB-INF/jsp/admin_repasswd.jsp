@@ -1,12 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 君行天下
-  Date: 2017/8/3
-  Time: 10:42
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file = "taglib.jsp" %>
 <html>
 <head>
     <title>更改密码</title>
@@ -21,7 +16,7 @@
 
 </head>
 <body>
-<nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
+<%-- <nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
     <div class="container-fluid">
         <div class="navbar-header" style="margin-left: 8%;margin-right: 1%">
             <a class="navbar-brand" href="admin_main.html">图书管理系统</a>
@@ -84,7 +79,7 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav> --%>
 <div style="position: relative;top: 15%">
     <c:if test="${!empty succ}">
         <div class="alert alert-success alert-dismissable">

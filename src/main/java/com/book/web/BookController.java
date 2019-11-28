@@ -81,6 +81,9 @@ public class BookController extends BaseController {
 		}
 	}
 
+	/*
+	 * 图书新增跳转
+	 */
 	@RequestMapping("/book_add.html")
 	public ModelAndView addBook(HttpServletRequest request) {
 

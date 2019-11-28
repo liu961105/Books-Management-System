@@ -1,8 +1,9 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@include file="taglib.jsp"%>
+<%@ include file="taglib.jsp"%>
 <html>
 <head>
-<title>添加图书分类</title>
+<title>详情</title>
 <style>
 body {
 	background-color: rgb(240, 242, 245);
@@ -37,7 +38,7 @@ body {
 						data-toggle="dropdown"> 读者管理 <b class="caret"></b>
 					</a>
 						<ul class="dropdown-menu">
-							<li><a href="${ctx }/allreaders.html">全部读者</a></li>
+							<li><a href="allreaders.html">全部读者</a></li>
 							<li class="divider"></li>
 							<li><a href="${ctx}/reader_add.html">增加读者</a></li>
 						</ul></li>
@@ -51,57 +52,42 @@ body {
 						data-toggle="dropdown"> 管理员管理 <b class="caret"></b>
 					</a>
 						<ul class="dropdown-menu">
-							<li><a href="${ctx}/admin/allAdmin">全部管理员</a></li>
+							<li><a href="admin/allAdmin">全部管理员</a></li>
 							<li class="divider"></li>
-							<li><a href="${ctx}/admin/toAddadmin">增加管理员</a></li>
+						     <li><a href="admin/toAddadmin">增加管理员</a></li>
 						</ul></li>
-					<li><a href="${ctx}/admin_repasswd.html"> 密码修改 </a></li>
+					<li><a href="admin_repasswd.html"> 密码修改 </a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="${ctx}/login.html"><span
+					<li><a href="login.html"><span
 							class="glyphicon glyphicon-user"></span>&nbsp;${admin.adminId}，已登录</a></li>
-					<li><a href="${ctx}/logout.html"><span
+					<li><a href="logout.html"><span
 							class="glyphicon glyphicon-log-in"></span>&nbsp;退出</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav> --%>
 
-	<div style="position: relative;top: 10%;width: 80%;margin-left: 10%">
-		<form action="${ctx}/classInfo/classInfoSave" method="post"
-			id="addbook">
-			<div class="form-group">
-				<label for="name">图书分类编码</label> <input type="text"
-					class="form-control" name="classId" id="classId"
-					placeholder="请输入图书分类编码">
+	<div class="col-xs-6 col-md-offset-3"
+		style="position: relative;top: 10%">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">《 ${classInfo.className}》</h3>
 			</div>
-			<div class="form-group">
-				<label for="author">图书分类名称</label> <input type="text"
-					class="form-control" name="className" id="className"
-					placeholder="请输入图书分类名称">
+			<div class="panel-body">
+				<table class="table table-hover">
+					<tr>
+						<th width="15%">分类编码</th>
+						<td>${classInfo.classId}</td>
+					</tr>
+					<tr>
+						<th>分类名称</th>
+						<td>${classInfo.className}</td>
+					</tr>
+					</tbody>
+				</table>
 			</div>
-			<input type="submit" value="添加" class="btn btn-success btn-sm"
-				class="text-left">
-		</form>
+		</div>
 	</div>
 </body>
 </html>
-
-<script type="text/javascript">
-	layui.use('layer', function() {
-		var layer = layui.layer;
-
-		function mySubmit(flag) {
-			return flag;
-		}
-
-		$("#addbook").submit(function() {
-			if (isNaN($("#classId").val())) {
-				layer.msg("分类编码必须为纯数字！", {
-					icon : 5
-				});
-				return mySubmit(false);
-			}
-		})
-	});
-</script>

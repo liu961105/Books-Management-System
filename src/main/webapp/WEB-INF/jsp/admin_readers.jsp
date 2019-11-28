@@ -17,7 +17,7 @@ body {
 			window.location.href = "allreaders.html"
 		</script>
 	</c:if>
-	<nav
+	<%-- <nav
 		style="position:fixed;z-index: 999;width: 100%;background-color: #fff"
 		class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
@@ -74,7 +74,7 @@ body {
 				</ul>
 			</div>
 		</div>
-	</nav>
+	</nav> --%>
 	<div style="position: relative;top: 15%">
 		<c:if test="${!empty succ}">
 			<div class="alert alert-success alert-dismissable">

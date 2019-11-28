@@ -21,8 +21,8 @@
     </style>
 
 </head>
-<body background="img/timg4.jpg">
-<nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
+<body style="background-image:url(img/timg8.jpg);background-repeat: no-repeat; background-size:100% 100%;">
+<%-- <nav  style="position:fixed;z-index: 999;width: 100%;background-color: #fff" class="navbar navbar-default" role="navigation" >
     <div class="container-fluid">
         <div class="navbar-header" style="margin-left: 8%;margin-right: 1%">
             <a class="navbar-brand" href="${ctx }/admin_main.html">图书后台管理系统</a>
@@ -85,7 +85,7 @@
             </ul>
         </div>
     </div>
-</nav>
+</nav> --%>
 
 
 <!-- 模态框（Modal） -->

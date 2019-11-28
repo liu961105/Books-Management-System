@@ -11,7 +11,7 @@ body {
 
 </head>
 <body>
-	<nav
+	<%-- <nav
 		style="position:fixed;z-index: 999;width: 100%;background-color: #fff"
 		class="navbar navbar-default" role="navigation">
 		<div class="container-fluid">
@@ -65,7 +65,7 @@ body {
 				</ul>
 			</div>
 		</div>
-	</nav>
+	</nav> --%>
 
 	<div class="col-xs-6 col-md-offset-3"
 		style="position: relative;top: 25%">

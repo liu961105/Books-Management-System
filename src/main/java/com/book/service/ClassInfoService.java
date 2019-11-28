@@ -24,4 +24,17 @@ public class ClassInfoService {
 	
 		return classInfoDao.classInfoSave(classInfo);
 	}
+	
+	public ClassInfo findByClassId(int classId){
+		return classInfoDao.findByClassId(classId);
+	}
+	public int  editClassInfo(ClassInfo classInfo) {
+		return classInfoDao.editClassInfo(classInfo);
+		
+	}
+
+	public boolean deleteClassInfo(int classId) {
+		 return classInfoDao.deleteClassInfo(classId)>0;
+		
+	}
 }
