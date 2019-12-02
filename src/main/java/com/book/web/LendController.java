@@ -5,8 +5,9 @@ import com.book.domain.Lend;
 import com.book.domain.ReaderCard;
 import com.book.domain.ReaderInfo;
 import com.book.domain.ResultEntity;
-import com.book.service.BookService;
-import com.book.service.LendService;
+import com.book.service.impl.BookService;
+import com.book.service.impl.LendService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

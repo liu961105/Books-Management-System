@@ -1,4 +1,4 @@
-package com.book.service;
+package com.book.service.impl;
 
 import com.book.dao.BookDao;
 import com.book.domain.Book;

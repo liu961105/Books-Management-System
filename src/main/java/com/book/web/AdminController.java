@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.book.domain.Admin;
 import com.book.domain.ResultEntity;
-import com.book.service.AdminService;
+import com.book.service.impl.AdminService;
 
 @Controller
 @RequestMapping("admin")

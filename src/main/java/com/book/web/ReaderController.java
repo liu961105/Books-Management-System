@@ -2,9 +2,9 @@ package com.book.web;
 
 import com.book.domain.ReaderCard;
 import com.book.domain.ReaderInfo;
-import com.book.service.LoginService;
-import com.book.service.ReaderCardService;
-import com.book.service.ReaderInfoService;
+import com.book.service.impl.LoginService;
+import com.book.service.impl.ReaderCardService;
+import com.book.service.impl.ReaderInfoService;
 import com.book.util.QRCodeUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
