@@ -15,8 +15,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 借还管理
+ * 
+ * @author LZN
+ *
+ */
 @Controller
 public class LendController extends BaseController {
 
@@ -51,9 +59,9 @@ public class LendController extends BaseController {
 	 */
 	@RequestMapping("/lendbookdo.html")
 	public String bookLendDo(HttpServletRequest request, RedirectAttributes redirectAttributes, int readerId,
-			String borrowingDay) {
+			String borrowingDay, String bookName, String readerName) {
 		long bookId = Integer.parseInt(request.getParameter("id"));
-		boolean lendsucc = lendService.bookLend(bookId, readerId, borrowingDay);
+		boolean lendsucc = lendService.bookLend(bookId, readerId, borrowingDay, bookName, readerName);
 		if (lendsucc) {
 			redirectAttributes.addFlashAttribute("succ", "图书借阅成功！");
 			return "redirect:/allbooks.html";
@@ -63,9 +71,10 @@ public class LendController extends BaseController {
 		}
 
 	}
-/*
- * 
- */
+
+	/*
+	 * 
+	 */
 	@RequestMapping("/returnbook")
 	public ModelAndView returnbook(HttpServletRequest request) {
 		long bookId = Integer.parseInt(request.getParameter("bookId"));
@@ -77,7 +86,6 @@ public class LendController extends BaseController {
 		return modelAndView;
 	}
 
-	
 	// 归还图书
 	@RequestMapping("/returnbook.html")
 	public String bookReturn(HttpServletRequest request, RedirectAttributes redirectAttributes) {
@@ -92,6 +100,11 @@ public class LendController extends BaseController {
 		}
 	}
 
+	/**
+	 * 借还日志跳转
+	 * 
+	 * @return
+	 */
 	@RequestMapping("/lendlist.html")
 	public ModelAndView lendList() {
 
@@ -125,7 +138,25 @@ public class LendController extends BaseController {
 			res.setSuccess(NULL);
 		}
 		return res;
+	}
 
+	/**
+	 * 搜索框查询
+	 * 
+	 * @param searchWord
+	 * @return
+	 */
+	@RequestMapping("queryLog")
+	public ModelAndView queryLog(String searchWord) {
+		boolean exist = lendService.matchLog(searchWord);
+		if (exist) {
+			List<Lend> lends = lendService.queryLog(searchWord);
+			ModelAndView modelAndView = new ModelAndView("admin_lend_list");
+			modelAndView.addObject("list", lends);
+			return modelAndView;
+		} else {
+			return new ModelAndView("admin_lend_list", "error", "没有匹配的借还日志");
+		}
 	}
 
 }

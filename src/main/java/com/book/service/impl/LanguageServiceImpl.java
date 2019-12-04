@@ -11,7 +11,6 @@ import com.book.domain.Language;
 import com.book.service.LanguageService;
 
 @Service
-@Transactional
 public class LanguageServiceImpl implements LanguageService {
 
 	@Autowired
@@ -21,6 +20,30 @@ public class LanguageServiceImpl implements LanguageService {
 	public List<Language> getAllLanguage() {
 
 		return languageDao.getAllLanguages();
+	}
+
+	@Override
+	public int saveLanguage(Language language) {
+		
+		return languageDao.saveLanguage(language);
+	}
+
+	@Override
+	public Language findById(String id) {
+		
+		return languageDao.finById(id);
+	}
+
+	@Override
+	public boolean editById(Language language) {
+		
+		return languageDao.editLanguage(language)>0;
+	}
+
+	@Override
+	public boolean deleteLanguage(String id) {
+		
+		return languageDao.deleteLanguage(id)>0;
 	}
 
 }

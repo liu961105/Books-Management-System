@@ -13,6 +13,7 @@ body {
 </head>
 <body>
 	<div style="position: relative;top: 10%;width: 80%;margin-left: 10%">
+		<button type="button" class="layui-btn" id="import">批量导入</button>
 		<form action="book_add_do.html" method="post" id="addbook">
 			<div class="form-group">
 				<label for="name">图书名</label> <input type="text"
@@ -37,9 +38,10 @@ body {
 					id="introduction" placeholder="请输入简介"></textarea>
 			</div>
 			<div class="form-group">
-				<label for="language">语言</label> <input type="text"
-					class="form-control" name="language" id="language"
-					placeholder="请输入语言">
+				<label for="language">语言</label> <select class="form-control"
+					id="language" name="language">
+					<option>请选择语言</option>
+				</select>
 			</div>
 			<div class="form-group">
 				<label for="price">价格</label> <input type="text"
@@ -75,45 +77,106 @@ body {
 				class="text-left">
 
 		</form>
-
 	</div>
-
-
+	<div id="importDiv" style="display: none;">
+		<div class="layui-upload">
+			<div class="layui-row" style="margin-top: 35px;">
+				<div class="layui-col-xs12">
+					<label class="layui-form-label requied">文件选择：</label>
+					<div class="layui-input-block">
+						<form class="form-x" method="post" enctype="multipart/form-data"
+							id="uploadform">
+							<div class="layui-upload">
+								<button type="button" class="layui-btn layui-btn-normal"
+									id="test8">选择文件</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="layui-form-item" style="margin-top: 35px;">
+			<div class="layui-input-block"
+				style="margin: 0 auto; text-align: center;">
+				<button type="button" class="layui-btn" id="test9">开始导入</button>
+			</div>
+		</div>
+	</div>
 
 </body>
 </html>
 
 <script type="text/javascript">
-//layui 时间组件运用
-layui.use('laydate', function(){
-  var laydate = layui.laydate;
-  laydate.render({
-    elem: '#pubdate'
-    ,trigger: 'click'
-  });
-});
-	$(function() {
-		getClassInfo();
-	})
-	function getClassInfo() {
-		$.post("${ctx}/classInfo/findClassInfos", {}, function(res) {
-			if (res.success == '1') {
-				for(var i =0;i<res.data.length;i++){
-					$("#classId").append('<option value="' + res.data[i].classId + '">' + res.data[i].className + '</option>');
+	//layui 时间组件运用
+	layui.use('laydate', function() {
+		var laydate = layui.laydate;
+		laydate.render({
+			elem : '#pubdate',
+			trigger : 'click'
+		});
+		layui.use('upload', function() {
+			var $ = layui.jquery,
+			upload = layui.upload;
+			upload.render({
+				elem : '#test8',
+				url : '${ctx}/dataConfig/importSonUserExport',//
+				method : "post",
+				auto : false,
+				bindAction : '#test9',
+				accept : 'file',
+				exts : 'xls|xlsx',
+				done : function(res) {
+					console.log(res);
+					if (res.success == '1') {
+						showOkTip(res.message);
+						$("#data-list").load("${ctx}/route/manage/gyy/userdistribut_list");
+					} else {
+						alertError(res.message);
+					}
 				}
+			});
+		});
+		$(function() {
+			getClassInfo();
+			getLanguage();
+		})
+		function getClassInfo() {
+			$.post("${ctx}/classInfo/findClassInfos", {}, function(res) {
+				if (res.success == '1') {
+					for (var i = 0; i < res.data.length; i++) {
+						$("#classId").append('<option value="' + res.data[i].classId + '">' + res.data[i].className + '</option>');
+					}
+				}
+			})
+		}
+		function getLanguage() {
+			$.post("${ctx}/bookLanguage/findLanguage", {}, function(res) {
+				if (res.success == '1') {
+					for (var i = 0; i < res.data.length; i++) {
+						$("#language").append('<option value="' + res.data[i].languageNumber + '">' + res.data[i].languageName + '</option>');
+					}
+				}
+			})
+		}
+		function mySubmit(flag) {
+			return flag;
+		}
+		$("#addbook").submit(function() {
+			if ($("#name").val() == '' || $("#author").val() == '' || $("#publish").val() == '' || $("#isbn").val() == '' || $("#introduction").val() == '' || $("#language").val() == '' || $("#price").val() == '' || $("#pubdate").val() == '' || $("#classId").val() == '' || $("#pressmark").val() == '' || $("#state").val() == '') {
+				layer.msg("请填入完整图书信息！", {
+					icon : 5
+				});
+				return mySubmit(false);
 			}
 		})
-	}
-	function mySubmit(flag) {
-		return flag;
-	}
-	$("#addbook").submit(function() {
-		if ($("#name").val() == '' || $("#author").val() == '' || $("#publish").val() == '' || $("#isbn").val() == '' || $("#introduction").val() == '' || $("#language").val() == '' || $("#price").val() == '' || $("#pubdate").val() == '' || $("#classId").val() == '' || $("#pressmark").val() == '' || $("#state").val() == '') {
-			layer.msg("请填入完整图书信息！", {
-				icon : 5
-			});
-			return mySubmit(false);
-		}
-	})
-	
+		//图书批量导入
+		$("#import").on("click", function() {
+			layer.open({
+				type : 1,
+				title : "批量导入文件",
+				area : [ '30%', '30%' ],
+				content : $("#importDiv")
+			})
+		})
+	});
 </script>

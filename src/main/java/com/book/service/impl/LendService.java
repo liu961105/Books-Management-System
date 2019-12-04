@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class LendService {
@@ -25,8 +26,8 @@ public class LendService {
 		return lendDao.bookReturnOne(bookId) > 0 && lendDao.bookReturnTwo(bookId) > 0;
 	}
 
-	public boolean bookLend(long bookId, int readerId, String borrowingDay) {
-		return lendDao.bookLendOne(bookId, readerId, borrowingDay) > 0 && lendDao.bookLendTwo(bookId) > 0;
+	public boolean bookLend(long bookId, int readerId, String borrowingDay,String bookName,String readerName) {
+		return lendDao.bookLendOne(bookId, readerId, borrowingDay,bookName,readerName) > 0 && lendDao.bookLendTwo(bookId) > 0;
 	}
 
 	public ArrayList<Lend> lendList() {
@@ -48,4 +49,26 @@ public class LendService {
 	public Lend getReadId(long bookId){
 		return lendDao.getReadId(bookId);
 	}
+
+	public boolean matchLog(String searchWord) {
+		
+		return lendDao.matchLog(searchWord)>0;
+	}
+
+	public List<Lend> queryLog(String searchWord) {
+		
+		return lendDao.queryLog(searchWord);
+	}
+
+	public boolean matchReaderLend(String searchWord, String readerId) {
+		
+		return lendDao.matchReaderLend(searchWord,readerId)>0;
+	}
+
+	public List<Lend> queryReaderLend(String searchWord, String readerId) {
+		
+		return lendDao.queryReaderLend(searchWord,readerId);
+	}
+
+	
 }

@@ -22,5 +22,10 @@ public class ReaderCardService {
     public boolean updateName(int readerId,String name){
         return readerCardDao.updateName(readerId,name)>0;
     }
+    
+    public  boolean deleteReader (int readId){
+    	return readerCardDao.deleteByReadCard(readId)>0;
+		
+	}
 
 }

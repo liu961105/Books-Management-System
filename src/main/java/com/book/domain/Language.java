@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
  * @author LZN
  *
  */
-@Repository
 public class Language {
 	private String id;
 	private String languageNumber;

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ReaderInfoService {
@@ -35,5 +36,13 @@ public class ReaderInfoService {
     public ReaderInfo findByName(String name){
     	return readerInfoDao.findByName(name);
     }
+	public boolean matchReader(String searchWord) {
+		
+		return readerInfoDao.matchReader(searchWord)>0;
+	}
+	public List<ReaderInfo> queryReader(String searchWord) {
+		
+		return readerInfoDao.queryReader(searchWord);
+	}
 }
 

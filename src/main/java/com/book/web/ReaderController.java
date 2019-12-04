@@ -1,7 +1,10 @@
 package com.book.web;
 
+import com.book.domain.Book;
+import com.book.domain.Lend;
 import com.book.domain.ReaderCard;
 import com.book.domain.ReaderInfo;
+import com.book.service.impl.LendService;
 import com.book.service.impl.LoginService;
 import com.book.service.impl.ReaderCardService;
 import com.book.service.impl.ReaderInfoService;
@@ -9,6 +12,7 @@ import com.book.util.QRCodeUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,12 +24,20 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.UUID;
+import java.util.List;
 
+/**
+ * 读者管理
+ * 
+ * @author LZN
+ *
+ */
 @Controller
 public class ReaderController {
 
 	private ReaderInfoService readerInfoService;
+	
+	
 
 	@Autowired
 	public void setReaderInfoService(ReaderInfoService readerInfoService) {
@@ -46,6 +58,9 @@ public class ReaderController {
 		this.readerCardService = readerCardService;
 	}
 
+	@Autowired
+	private LendService lendService;
+
 	// 读者列表跳转
 	@RequestMapping("allreaders.html")
 	public ModelAndView allBooks() {
@@ -55,12 +70,19 @@ public class ReaderController {
 		return modelAndView;
 	}
 
+	/**
+	 * 删除读者
+	 * 
+	 * @param request
+	 * @param redirectAttributes
+	 * @return
+	 */
 	@RequestMapping("reader_delete.html")
 	public String readerDelete(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		int readerId = Integer.parseInt(request.getParameter("readerId"));
 		boolean success = readerInfoService.deleteReaderInfo(readerId);
-
-		if (success) {
+		boolean readCard = readerCardService.deleteReader(readerId);
+		if (success && readCard) {
 			redirectAttributes.addFlashAttribute("succ", "删除成功！");
 			return "redirect:/allreaders.html";
 		} else {
@@ -69,7 +91,8 @@ public class ReaderController {
 		}
 
 	}
-	//读者功能
+
+	// 读者功能
 	@RequestMapping("/reader_info.html")
 	public ModelAndView toReaderInfo(HttpServletRequest request) {
 		ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute("readercard");
@@ -87,26 +110,26 @@ public class ReaderController {
 		modelAndView.addObject("readerInfo", readerInfo);
 		return modelAndView;
 	}
-	
-	//跳转到二维码
+
+	// 跳转到二维码
 	@RequestMapping("reader_show")
-	public ModelAndView readInfoShow(HttpServletRequest request){
+	public ModelAndView readInfoShow(HttpServletRequest request) {
 		int readerId = Integer.parseInt(request.getParameter("readerId"));
 		ReaderInfo readerInfo = readerInfoService.getReaderInfo(readerId);
 		int text = readerInfo.getReaderId();
-		String destPath = "E:\\img\\"+readerInfo.getName()+readerInfo.getReaderId()+".jpg";
-		//取出id
-			try {
-				QRCodeUtil.encode(text+"" , destPath);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		
+		String destPath = "E:\\img\\" + readerInfo.getName() + readerInfo.getReaderId() + ".jpg";
+		// 取出id
+		try {
+			QRCodeUtil.encode(text + "", destPath);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		ModelAndView modelAndView = new ModelAndView("admin_reader_show");
-		modelAndView.addObject("readerInfo",readerInfo);
-		
+		modelAndView.addObject("readerInfo", readerInfo);
+
 		return modelAndView;
-		
+
 	}
 
 	@RequestMapping("reader_edit_do.html")
@@ -220,7 +243,7 @@ public class ReaderController {
 	// 管理员功能--读者信息添加
 	@RequestMapping("reader_add_do.html")
 	public String readerInfoAddDo(String name, String sex, String birth, String address, String telcode,
-			RedirectAttributes redirectAttributes) {
+			String schoolName, String className, RedirectAttributes redirectAttributes) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date nbirth = new Date();
 		try {
@@ -229,25 +252,27 @@ public class ReaderController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		//生成一个UUID 
+		// 生成一个UUID
 		ReaderInfo readerInfo = new ReaderInfo();
 		readerInfo.setAddress(address);
 		readerInfo.setBirth(nbirth);
 		readerInfo.setName(name);
 		readerInfo.setTelcode(telcode);
 		readerInfo.setSex(sex);
-		//添加读者信息
+		readerInfo.setSchoolName(schoolName);
+		readerInfo.setClassName(className);
+		// 添加读者信息
 		boolean succ = readerInfoService.addReaderInfo(readerInfo);
-		ReaderInfo entity = readerInfoService.findByName( name);
+		ReaderInfo entity = readerInfoService.findByName(name);
 		boolean succc = readerCardService.addReaderCard(entity);
 		int text = entity.getReaderId();
-		String destPath = "E:\\img\\"+readerInfo.getName()+readerInfo.getReaderId()+".jpg";
-		//取出id
-			try {
-				QRCodeUtil.encode(text+"" , destPath);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		String destPath = "E:\\img\\" + readerInfo.getName() + text + ".jpg";
+		// 取出id
+		try {
+			QRCodeUtil.encode(text + "", destPath);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		ArrayList<ReaderInfo> readers = readerInfoService.readerInfos();
 		if (succ && succc) {
 			redirectAttributes.addFlashAttribute("succ", "添加读者信息成功！");
@@ -332,6 +357,47 @@ public class ReaderController {
 				return "redirect:/reader_info.html";
 			}
 		}
+	}
 
+	/**
+	 * 读者搜索框查询
+	 */
+	@RequestMapping("queryReader")
+	public ModelAndView queryReader(String searchWord) {
+		boolean exist = readerInfoService.matchReader(searchWord);
+		if (exist) {
+			List<ReaderInfo> readerInfos = readerInfoService.queryReader(searchWord);
+			ModelAndView modelAndView = new ModelAndView("admin_readers");
+			modelAndView.addObject("readers", readerInfos);
+			return modelAndView;
+		} else {
+			return new ModelAndView("admin_readers", "error", "没有匹配的读者");
+		}
+	}
+
+	/**
+	 * 查看读者借阅记录
+	 */
+	@RequestMapping("showReaderLend")
+	public ModelAndView showReaderLend(int readerId) {
+		List<Lend> lendList = lendService.myLendList(readerId);
+		ModelAndView modelAndView = new ModelAndView("show_reader_lend_list");
+		modelAndView.addObject("lendList", lendList);
+		return modelAndView;
+	}
+	/**
+	 * 查看读者借阅下钻搜索框(有点问题)
+	 */
+	@RequestMapping("queryreaderLend")
+	public ModelAndView queryreaderLend(String searchWord,String readerId){
+		boolean exist = lendService.matchReaderLend(searchWord,readerId);
+		if (exist) {
+			List <Lend> lendList = lendService.queryReaderLend(searchWord,readerId);
+			ModelAndView modelAndView = new ModelAndView("show_reader_lend_list");
+			modelAndView.addObject("lendList", lendList);
+			return modelAndView;
+		}else {
+			return new ModelAndView("show_reader_lend_list", "error", "没有匹配的信息");
+		}
 	}
 }

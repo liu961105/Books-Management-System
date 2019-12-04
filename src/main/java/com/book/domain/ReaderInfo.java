@@ -6,8 +6,8 @@ import java.util.Date;
 public class ReaderInfo implements Serializable{
 
     /**
-	 * 
-	 */
+     *  reader_info  
+     */
 	private static final long serialVersionUID = 1L;
 	private int readerId;
     private String name;
@@ -15,6 +15,11 @@ public class ReaderInfo implements Serializable{
     private Date birth;
     private String address;
     private String telcode;
+    //新加字段
+    private String schoolName;//学校
+    private String className; //班级
+    
+    
 
     public void setName(String name) {
         this.name = name;
@@ -63,4 +68,20 @@ public class ReaderInfo implements Serializable{
     public String getTelcode() {
         return telcode;
     }
+
+	public String getSchoolName() {
+		return schoolName;
+	}
+
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
+	}
 }

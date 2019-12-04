@@ -21,7 +21,7 @@
 							<li><a href="${ctx }/classInfo/toAddClassInfo">分类维护</a></li>
 						<li class = "divider"></li>
 							<li><a href="${ctx}/bookLanguage/getBooKLanguage">书籍语言</a></li>
-							<li><a href="${ctx }/classInfo/toAddClassInfo">语言维护</a></li>
+							<li><a href="${ctx }/bookLanguage/toAddLanguage">语言维护</a></li>
 						</ul>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"> 读者管理 <b class="caret"></b>

@@ -2,59 +2,65 @@ package com.book.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+
 /**
- * 借阅
+ * 借还日志
+ * 
  * @author LZN
  *
  */
 public class Lend implements Serializable {
 
-    private long sernum;
-    private long bookId;
-    private int readerId;
-    private Date lendDate;
-    private Date backDate;
-    private String borrowingDay;
+	private long sernum;
+	private long bookId;
+	private int readerId;
+	private Date lendDate;
+	private Date backDate;
+	private String borrowingDay;
 
-    public void setReaderId(int readerId) {
-        this.readerId = readerId;
-    }
+	// 新增字段
+	private String bookName;
+	private String readerName;
 
-    public void setBookId(long bookId) {
-        this.bookId = bookId;
-    }
+	public void setReaderId(int readerId) {
+		this.readerId = readerId;
+	}
 
-    public void setBackDate(Date backDate) {
-        this.backDate = backDate;
-    }
+	public void setBookId(long bookId) {
+		this.bookId = bookId;
+	}
 
-    public void setLendDate(Date lendDate) {
-        this.lendDate = lendDate;
-    }
+	public void setBackDate(Date backDate) {
+		this.backDate = backDate;
+	}
 
-    public void setSernum(long sernum) {
-        this.sernum = sernum;
-    }
+	public void setLendDate(Date lendDate) {
+		this.lendDate = lendDate;
+	}
 
-    public int getReaderId() {
-        return readerId;
-    }
+	public void setSernum(long sernum) {
+		this.sernum = sernum;
+	}
 
-    public long getBookId() {
-        return bookId;
-    }
+	public int getReaderId() {
+		return readerId;
+	}
 
-    public Date getBackDate() {
-        return backDate;
-    }
+	public long getBookId() {
+		return bookId;
+	}
 
-    public Date getLendDate() {
-        return lendDate;
-    }
+	public Date getBackDate() {
+		return backDate;
+	}
 
-    public long getSernum() {
-        return sernum;
-    }
+	public Date getLendDate() {
+		return lendDate;
+	}
+
+	public long getSernum() {
+		return sernum;
+	}
 
 	public String getBorrowingDay() {
 		return borrowingDay;
@@ -62,5 +68,21 @@ public class Lend implements Serializable {
 
 	public void setBorrowingDay(String borrowingDay) {
 		this.borrowingDay = borrowingDay;
+	}
+
+	public String getBookName() {
+		return bookName;
+	}
+
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+
+	public String getReaderName() {
+		return readerName;
+	}
+
+	public void setReaderName(String readerName) {
+		this.readerName = readerName;
 	}
 }

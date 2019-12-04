@@ -11,7 +11,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-
+/**
+ * 图书管理
+ * @author LZN
+ *
+ */
 @Controller
 public class BookController extends BaseController {
 	private BookService bookService;

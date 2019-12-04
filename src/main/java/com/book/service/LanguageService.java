@@ -8,4 +8,12 @@ public interface LanguageService {
 	
 	public List<Language> getAllLanguage();
 
+	public int saveLanguage(Language language);
+
+	public Language findById(String id);
+
+	public boolean editById(Language language);
+
+	public boolean deleteLanguage(String id);
+
 }
