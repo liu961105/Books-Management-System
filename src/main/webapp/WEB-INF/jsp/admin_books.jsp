@@ -73,7 +73,11 @@
                 <th>出版社</th>
                 <th>ISBN</th>
                 <th>价格</th>
-                <th>借还</th>
+                <th>总数量</th>
+                <th>在馆数</th>
+                <th>借出数</th>
+                <th>借阅</th>
+                <th>归还</th>
                 <th>详情</th>
                 <th>编辑</th>
                 <th>删除</th>
@@ -87,12 +91,11 @@
                 <td><c:out value="${book.publish}"></c:out></td>
                 <td><c:out value="${book.isbn}"></c:out></td>
                 <td><c:out value="${book.price}"></c:out></td>
-                <c:if test="${book.state==1}">
+                 <td><c:out value="${book.number}"></c:out></td>
+                  <td><c:out value="${book.inNumber}"></c:out></td>
+                  <td><c:out value="${book.lendNumber}"></c:out></td>
                     <td><a href="lendbook.html?bookId=<c:out value="${book.bookId}"></c:out>"><button type="button" class="btn btn-primary btn-xs">借阅</button></a></td>
-                </c:if>
-                <c:if test="${book.state==0}">
                     <td><a href="returnbook?bookId=<c:out value="${book.bookId}"></c:out>"><button type="button" class="btn btn-primary btn-xs">归还</button></a></td>
-                </c:if>
                 <td><a href="bookdetail.html?bookId=<c:out value="${book.bookId}"></c:out>"><button type="button" class="btn btn-success btn-xs">详情</button></a></td>
                 <td><a href="updatebook.html?bookId=<c:out value="${book.bookId}"></c:out>"><button type="button" class="btn btn-info btn-xs">编辑</button></a></td>
                 <td><a href="deletebook.html?bookId=<c:out value="${book.bookId}"></c:out>"><button type="button" class="btn btn-danger btn-xs">删除</button></a></td>

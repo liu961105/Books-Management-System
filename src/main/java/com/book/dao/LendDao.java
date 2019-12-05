@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.book.domain.Lend;
 import com.book.domain.ReaderInfo;
 
+import java.math.BigInteger;
 import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,17 +27,19 @@ public class LendDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	private final static String BOOK_RETURN_SQL_ONE = "UPDATE lend_list SET back_date = ? WHERE book_id = ? AND back_date is NULL";
+	private final static String BOOK_RETURN_SQL_ONE = "UPDATE lend_list SET back_date = ? WHERE sernum = ?  AND back_date is NULL";
 
-	private final static String BOOK_RETURN_SQL_TWO = "UPDATE book_info SET state = 1 WHERE book_id = ? ";
+	private final static String BOOK_RETURN_SQL_TWO = "UPDATE book_info SET state = 1,in_number =in_number+1,lend_number =lend_number-1  WHERE book_id = ? ";
 
 	private final static String BOOK_LEND_SQL_ONE = "INSERT INTO lend_list (book_id,reader_id,lend_date,borrowingDay,book_name,reader_name) VALUES ( ? , ? , ? ,?,?,?)";
 
-	private final static String BOOK_LEND_SQL_TWO = "UPDATE book_info SET state = 0 WHERE book_id = ? ";
+	private final static String BOOK_LEND_SQL_TWO = "UPDATE book_info SET state = 0,in_number =in_number -1,lend_number =lend_number+1   WHERE book_id = ? ";
 
 	private final static String LEND_LIST_SQL = "SELECT * FROM lend_list";
 
 	private final static String GET_READID_SQL = "select * from lend_list where book_id = ? ";
+	
+	private final static String getSernum = "select * from lend_list where book_id = ? and reader_id = ? ";
 
 	private final static String MY_LEND_LIST_SQL = "SELECT * FROM lend_list WHERE reader_id = ? ";
 	private static final String MATCH_LOG_SQL = "select count(*) from lend_list where  book_name like ? or reader_id like ? or reader_name like ? ";
@@ -45,9 +48,11 @@ public class LendDao {
 	private static final String MATCH_READER_LEND_SQL = "select count(*) from lend_list where book_name like ? or book_id like ?  AND  reader_id = ? ";
 
 	private static final String QUERYREADERLEND_SQL = "select * from lend_list where book_name like ? or book_id like ?  AND  reader_id = ? ";
+	
+	private static final String CKECK_READER_SQL = "select count(*) from lend_list where book_id = ? and reader_id = ? and back_date is NULL";
 
-	public int bookReturnOne(long bookId) {
-		return jdbcTemplate.update(BOOK_RETURN_SQL_ONE, new Object[] { df.format(new Date()), bookId });
+	public int bookReturnOne(long sernum) {
+		return jdbcTemplate.update(BOOK_RETURN_SQL_ONE, new Object[] { df.format(new Date()),sernum });
 	}
 
 	public int bookReturnTwo(long bookId) {
@@ -180,6 +185,25 @@ public class LendDao {
 			}
 		});
 		return lends;
+	}
+
+	public int checkReaderLog(long bookId,int readerId) {
+		return jdbcTemplate.queryForObject(CKECK_READER_SQL,new Object[]{bookId,readerId},Integer.class);
+		
+	}
+
+	public Lend getSernum(long bookId, int readerId) {
+		Lend lend = new Lend();
+		jdbcTemplate.query(getSernum, new Object[] { bookId, readerId}, new RowCallbackHandler() {
+			@Override
+			public void processRow(ResultSet rs) throws SQLException {
+				rs.beforeFirst();
+				while (rs.next()) {
+					lend.setSernum(rs.getInt("sernum"));
+				}
+			}
+		});
+		return lend;
 	}
 
 }

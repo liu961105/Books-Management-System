@@ -19,6 +19,10 @@ public class BookAddCommand {
     private int classId;
     private int pressmark;
     private int state;
+    
+    private Integer number;
+    private Integer inNumber;
+    private Integer lendNumber;
 
     public void setName(String name) {
         this.name = name;
@@ -118,6 +122,30 @@ public class BookAddCommand {
     public String getPublish() {
         return publish;
     }
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
+	public Integer getInNumber() {
+		return inNumber;
+	}
+
+	public void setInNumber(Integer inNumber) {
+		this.inNumber = inNumber;
+	}
+
+	public Integer getLendNumber() {
+		return lendNumber;
+	}
+
+	public void setLendNumber(Integer lendNumber) {
+		this.lendNumber = lendNumber;
+	}
 
 
 

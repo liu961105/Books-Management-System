@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public class BookDao {
@@ -22,15 +23,16 @@ public class BookDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private final static String ADD_BOOK_SQL="INSERT INTO book_info VALUES(NULL ,?,?,?,?,?,?,?,?,?,?,?)";
+    private final static String ADD_BOOK_SQL="INSERT INTO book_info VALUES(NULL ,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String DELETE_BOOK_SQL="delete from book_info where book_id = ?  ";
-    private final static String EDIT_BOOK_SQL="update book_info set name= ? ,author= ? ,publish= ? ,ISBN= ? ,introduction= ? ,language= ? ,price= ? ,pubdate= ? ,class_id= ? ,pressmark= ? ,state= ?  where book_id= ? ;";
+    private final static String EDIT_BOOK_SQL="update book_info set name= ? ,author= ? ,publish= ? ,ISBN= ? ,introduction= ? ,language= ? ,price= ? ,pubdate= ? ,class_id= ? ,pressmark= ? ,state= ? ,number= ?,in_number = ?  where book_id= ?  ";
     private final static String QUERY_ALL_BOOKS_SQL="SELECT * FROM book_info ";
     private final static String QUERY_BOOK_SQL="SELECT * FROM book_info WHERE book_id like  ?  or name like ?   or ISBN like ? ";
     //查询匹配图书的个数
     private final static String MATCH_BOOK_SQL="SELECT count(*) FROM book_info WHERE book_id like ?  or name like ?  or ISBN like ?  ";
     //根据书号查询图书
     private final static String GET_BOOK_SQL="SELECT * FROM book_info where book_id = ? ";
+    
 
     public int matchBook(String searchWord){
         String swcx="%"+searchWord+"%";
@@ -57,6 +59,9 @@ public class BookDao {
                     book.setPrice(resultSet.getBigDecimal("price"));
                     book.setState(resultSet.getInt("state"));
                     book.setPublish(resultSet.getString("publish"));
+                    book.setNumber(resultSet.getInt("number"));
+                    book.setInNumber(resultSet.getInt("in_number"));
+                    book.setLendNumber(resultSet.getInt("lend_number"));
                     books.add(book);
                 }
 
@@ -85,6 +90,9 @@ public class BookDao {
                         book.setIntroduction(resultSet.getString("introduction"));
                         book.setPressmark(resultSet.getInt("pressmark"));
                         book.setLanguage(resultSet.getString("language"));
+                        book.setNumber(resultSet.getInt("number"));
+                        book.setInNumber(resultSet.getInt("in_number"));
+                        book.setLendNumber(resultSet.getInt("lend_number"));
                         books.add(book);
                     }
             }
@@ -110,8 +118,11 @@ public class BookDao {
         int classId=book.getClassId();
         int pressmark=book.getPressmark();
         int state=book.getState();
-
-        return jdbcTemplate.update(ADD_BOOK_SQL,new Object[]{name,author,publish,isbn,introduction,language,price,pubdate,classId,pressmark,state});
+        int number = book.getNumber();
+       // int inNumber = book.getInNumber();
+  //      int lendNumber = book.getLendNumber();
+        //第一次增加图书时总数量就是在馆数
+        return jdbcTemplate.update(ADD_BOOK_SQL,new Object[]{name,author,publish,isbn,introduction,language,price,pubdate,classId,pressmark,state,number,number,0});
     }
 
     public Book getBook(Long bookId){
@@ -130,6 +141,9 @@ public class BookDao {
                     book.setPrice(resultSet.getBigDecimal("price"));
                     book.setState(resultSet.getInt("state"));
                     book.setPublish(resultSet.getString("publish"));
+                    book.setNumber(resultSet.getInt("number"));
+                    book.setInNumber(resultSet.getInt("in_number"));
+                    book.setLendNumber(resultSet.getInt("lend_number"));
             }
 
         });
@@ -148,9 +162,8 @@ public class BookDao {
         int classId=book.getClassId();
         int pressmark=book.getPressmark();
         int state=book.getState();
-
-        return jdbcTemplate.update(EDIT_BOOK_SQL,new Object[]{name,author,publish,isbn,introduction,language,price,pubdate,classId,pressmark,state,bookId});
+        int number = book.getNumber();
+        return jdbcTemplate.update(EDIT_BOOK_SQL,new Object[]{name,author,publish,isbn,introduction,language,price,pubdate,classId,pressmark,state,number,number,bookId});
     }
-
 
 }

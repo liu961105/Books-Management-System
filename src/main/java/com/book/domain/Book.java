@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Book implements Serializable{
-
+//新增
+	
     private long bookId;
     private String name;
     private String author;
@@ -18,6 +19,10 @@ public class Book implements Serializable{
     private int classId;
     private int pressmark;
     private int state;
+    //新增
+    private Integer number;
+    private Integer inNumber;
+    private Integer lendNumber;
 
     public void setName(String name) {
         this.name = name;
@@ -119,4 +124,28 @@ public class Book implements Serializable{
     public String toString() {
         return "这本书的信息为"+pressmark+pubdate+bookId+name+author+publish+isbn+introduction+language+price+classId+state;
     }
+
+	public Integer getNumber() {
+		return number;
+	}
+
+	public void setNumber(Integer number) {
+		this.number = number;
+	}
+
+	public Integer getInNumber() {
+		return inNumber;
+	}
+
+	public void setInNumber(Integer inNumber) {
+		this.inNumber = inNumber;
+	}
+
+	public Integer getLendNumber() {
+		return lendNumber;
+	}
+
+	public void setLendNumber(Integer lendNumber) {
+		this.lendNumber = lendNumber;
+	}
 }

@@ -71,7 +71,11 @@ body {
 					<option value="1">未借出</option>
 				</select>
 			</div>
-
+			<div class="form-group">
+				<label for="pressmark">总数量</label> <input type="text"
+					class="form-control" name="number" id="number"
+					placeholder="请输入数量">
+			</div>
 
 			<input type="submit" value="添加" class="btn btn-success btn-sm"
 				class="text-left">
@@ -90,19 +94,19 @@ body {
 								<button type="button" class="layui-btn layui-btn-normal"
 									id="test8">选择文件</button>
 							</div>
+							<div class="layui-form-item" style="margin-top: 35px;">
+								<div class="layui-input-block"
+									style="margin: 0 auto; text-align: center;">
+									<button type="button" class="layui-btn" id="test9">开始导入</button>
+								</div>
+							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="layui-form-item" style="margin-top: 35px;">
-			<div class="layui-input-block"
-				style="margin: 0 auto; text-align: center;">
-				<button type="button" class="layui-btn" id="test9">开始导入</button>
-			</div>
-		</div>
 	</div>
-
+	<!-- 完 -->
 </body>
 </html>
 
@@ -116,10 +120,10 @@ body {
 		});
 		layui.use('upload', function() {
 			var $ = layui.jquery,
-			upload = layui.upload;
+				upload = layui.upload;
 			upload.render({
 				elem : '#test8',
-				url : '${ctx}/dataConfig/importSonUserExport',//
+				url : '${ctx}/importExport', //
 				method : "post",
 				auto : false,
 				bindAction : '#test9',
@@ -129,7 +133,7 @@ body {
 					console.log(res);
 					if (res.success == '1') {
 						showOkTip(res.message);
-						$("#data-list").load("${ctx}/route/manage/gyy/userdistribut_list");
+						window.location.href = "${ctx}/allbooks.html"
 					} else {
 						alertError(res.message);
 					}

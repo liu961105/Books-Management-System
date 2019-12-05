@@ -8,6 +8,7 @@ import com.book.domain.ReaderInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class LendService {
 		this.lendDao = lendDao;
 	}
 
-	public boolean bookReturn(long bookId) {
-		return lendDao.bookReturnOne(bookId) > 0 && lendDao.bookReturnTwo(bookId) > 0;
+	public boolean bookReturn(long sernum,long bookId   ) {
+		return lendDao.bookReturnOne(sernum) > 0 && lendDao.bookReturnTwo(bookId) > 0;
 	}
 
 	public boolean bookLend(long bookId, int readerId, String borrowingDay,String bookName,String readerName) {
@@ -68,6 +69,16 @@ public class LendService {
 	public List<Lend> queryReaderLend(String searchWord, String readerId) {
 		
 		return lendDao.queryReaderLend(searchWord,readerId);
+	}
+
+	public boolean checkReaderLog( long bookId,int readerId) {
+		
+		return lendDao.checkReaderLog(bookId,readerId)>0;
+	}
+
+	public Lend  getSernum(long bookId, int readerId) {
+		return lendDao.getSernum(bookId,readerId);
+		
 	}
 
 	

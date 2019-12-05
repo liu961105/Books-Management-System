@@ -75,6 +75,11 @@ body {
 								var data = res.data;
 								if (res.success == "1") {
 									$("#readerName").val(data.name);
+									$.post("checkReaderLog",{"bookId":'${book.bookId}',"readerId":readerId},function(res){
+										if(res.success=='1'){
+											layer.msg("该读者已借阅过此书，并且未归还",{icon:5})
+										}
+									})
 								}
 							})
 						});

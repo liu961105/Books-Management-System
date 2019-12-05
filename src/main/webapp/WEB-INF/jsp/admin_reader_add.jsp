@@ -65,7 +65,7 @@ body {
 							return flag;
 						}
 						$("#readeredit").submit(function() {
-							if ($("#name").val() == '') {
+							if ($("#name").val() == ''||$("#sex").val()==""||$("#birth").val()=="" || $("#address").val()==""||$("#telcode").val()==""||$("$className").val==""||$("#schoolName").val()=="") {
 								layer.msg("请填入完整读者信息！");
 								return mySubmit(false);
 							}

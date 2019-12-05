@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,10 +80,8 @@ public class LendController extends BaseController {
 	public ModelAndView returnbook(HttpServletRequest request) {
 		long bookId = Integer.parseInt(request.getParameter("bookId"));
 		Book book = bookService.getBook(bookId);
-		Lend lend = lendService.getReadId(bookId);
 		ModelAndView modelAndView = new ModelAndView("admin_book_return");
 		modelAndView.addObject("book", book);
-		modelAndView.addObject("lend", lend);
 		return modelAndView;
 	}
 
@@ -90,7 +89,9 @@ public class LendController extends BaseController {
 	@RequestMapping("/returnbook.html")
 	public String bookReturn(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		long bookId = Integer.parseInt(request.getParameter("id"));
-		boolean retSucc = lendService.bookReturn(bookId);
+		int readerId =  Integer.parseInt(request.getParameter("readerId"));
+		 Lend sernum = lendService.getSernum(bookId,readerId);
+		boolean retSucc = lendService.bookReturn(sernum.getSernum(),bookId);
 		if (retSucc) {
 			redirectAttributes.addFlashAttribute("succ", "图书归还成功！");
 			return "redirect:/allbooks.html";
@@ -157,6 +158,20 @@ public class LendController extends BaseController {
 		} else {
 			return new ModelAndView("admin_lend_list", "error", "没有匹配的借还日志");
 		}
+	}
+
+	@RequestMapping("checkReaderLog")
+	@ResponseBody
+	public ResultEntity checkReaderLog( long bookId,int readerId) {
+		ResultEntity res = new ResultEntity();
+		boolean exist = lendService.checkReaderLog(bookId, readerId);
+		if (exist) {
+			res.setMessage(OPERATE_SUCCESS);
+			res.setSuccess(SUCCESS);
+		} else {
+			res.setSuccess(ERROR);
+		}
+		return res;
 	}
 
 }
