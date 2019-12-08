@@ -60,9 +60,9 @@ public class LendController extends BaseController {
 	 */
 	@RequestMapping("/lendbookdo.html")
 	public String bookLendDo(HttpServletRequest request, RedirectAttributes redirectAttributes, int readerId,
-			String borrowingDay, String bookName, String readerName) {
+			String borrowingDay, String bookName, String readerName,String returnDate) {
 		long bookId = Integer.parseInt(request.getParameter("id"));
-		boolean lendsucc = lendService.bookLend(bookId, readerId, borrowingDay, bookName, readerName);
+		boolean lendsucc = lendService.bookLend(bookId, readerId, borrowingDay, bookName, readerName,returnDate);
 		if (lendsucc) {
 			redirectAttributes.addFlashAttribute("succ", "图书借阅成功！");
 			return "redirect:/allbooks.html";

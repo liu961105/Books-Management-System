@@ -48,7 +48,9 @@
 							<li class="divider"></li>
 							<li><a href="${ctx}/bookLanguage/getBooKLanguage">图书语言</a></li>
 							<li><a href="${ctx }/bookLanguage/toAddLanguage">图书语言维护</a></li>
-
+							<li class="divider"></li>
+							<li><a href="${ctx}/bookDictionaries/getBookDictionaries">图书字典</a></li>
+							<li><a href="${ctx}/bookDictionaries/addBookDictionaries">字典新增</a></li>
 						</ul></li>
 					<li><a href="${ctx }/admin_repasswd.html"> 密码修改 </a></li>
 				</ul>

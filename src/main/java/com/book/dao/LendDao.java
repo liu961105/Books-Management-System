@@ -31,7 +31,7 @@ public class LendDao {
 
 	private final static String BOOK_RETURN_SQL_TWO = "UPDATE book_info SET state = 1,in_number =in_number+1,lend_number =lend_number-1  WHERE book_id = ? ";
 
-	private final static String BOOK_LEND_SQL_ONE = "INSERT INTO lend_list (book_id,reader_id,lend_date,borrowingDay,book_name,reader_name) VALUES ( ? , ? , ? ,?,?,?)";
+	private final static String BOOK_LEND_SQL_ONE = "INSERT INTO lend_list (book_id,reader_id,lend_date,borrowingDay,book_name,reader_name,return_date) VALUES ( ? , ? , ? ,?,?,?,?)";
 
 	private final static String BOOK_LEND_SQL_TWO = "UPDATE book_info SET state = 0,in_number =in_number -1,lend_number =lend_number+1   WHERE book_id = ? ";
 
@@ -59,9 +59,9 @@ public class LendDao {
 		return jdbcTemplate.update(BOOK_RETURN_SQL_TWO, new Object[] { bookId });
 	}
 
-	public int bookLendOne(long bookId, int readerId, String borrowingDay, String bookName, String readerName) {
+	public int bookLendOne(long bookId, int readerId, String borrowingDay, String bookName, String readerName,String returnDate) {
 		return jdbcTemplate.update(BOOK_LEND_SQL_ONE,
-				new Object[] { bookId, readerId, df.format(new Date()), borrowingDay, bookName, readerName });
+				new Object[] { bookId, readerId, df.format(new Date()), borrowingDay, bookName, readerName,returnDate });
 	}
 
 	public int bookLendTwo(long bookId) {
@@ -83,6 +83,7 @@ public class LendDao {
 					lend.setSernum(resultSet.getLong("sernum"));
 					lend.setBookName(resultSet.getString("book_name"));
 					lend.setReaderName(resultSet.getString("reader_name"));
+					lend.setReturnDate(resultSet.getString("return_date"));
 					list.add(lend);
 				}
 			}
