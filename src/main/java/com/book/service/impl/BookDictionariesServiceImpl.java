@@ -33,4 +33,16 @@ public class BookDictionariesServiceImpl  implements BookDictionariesService{
 		return bookDictionariesDao.checkISBN(isbn);
 	}
 
+	@Override
+	public BookDictionaries findById(String id) {
+		
+		return bookDictionariesDao.findById(id);
+	}
+
+	@Override
+	public boolean editBook(BookDictionaries book) {
+		
+		return bookDictionariesDao.editBook(book)>0;
+	}
+
 }
