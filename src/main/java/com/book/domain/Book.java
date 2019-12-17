@@ -16,8 +16,8 @@ public class Book implements Serializable{
     private String language;
     private BigDecimal price;
     private Date pubdate;
-    private int classId;
-    private int pressmark;
+    private String  classId;
+    private String pressmark;
     private int state;
     //新增
     private Integer number;
@@ -32,7 +32,7 @@ public class Book implements Serializable{
         this.author = author;
     }
 
-    public void setClassId(int classId) {
+    public void setClassId(String classId) {
         this.classId = classId;
     }
 
@@ -64,7 +64,7 @@ public class Book implements Serializable{
         this.price = price;
     }
 
-    public void setPressmark(int pressmark) {
+    public void setPressmark(String pressmark) {
         this.pressmark = pressmark;
     }
 
@@ -84,7 +84,7 @@ public class Book implements Serializable{
         return bookId;
     }
 
-    public int getClassId() {
+    public String getClassId() {
         return classId;
     }
 
@@ -100,7 +100,7 @@ public class Book implements Serializable{
         return introduction;
     }
 
-    public int getPressmark() {
+    public String getPressmark() {
         return pressmark;
     }
 

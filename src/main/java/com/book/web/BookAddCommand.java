@@ -16,8 +16,8 @@ public class BookAddCommand {
     private String language;
     private BigDecimal price;
     private Date pubdate;
-    private int classId;
-    private int pressmark;
+    private String  classId;
+    private String  pressmark;
     private int state;
     
     private Integer number;
@@ -32,7 +32,7 @@ public class BookAddCommand {
         this.author = author;
     }
 
-    public void setClassId(int classId) {
+    public void setClassId(String classId) {
         this.classId = classId;
     }
 
@@ -70,7 +70,7 @@ public class BookAddCommand {
         this.price = price;
     }
 
-    public void setPressmark(int pressmark) {
+    public void setPressmark(String pressmark) {
         this.pressmark = pressmark;
     }
 
@@ -87,7 +87,7 @@ public class BookAddCommand {
     }
 
 
-    public int getClassId() {
+    public String getClassId() {
         return classId;
     }
 
@@ -103,7 +103,7 @@ public class BookAddCommand {
         return introduction;
     }
 
-    public int getPressmark() {
+    public String getPressmark() {
         return pressmark;
     }
 

@@ -24,12 +24,12 @@ public class AdminService {
 		return adminDao.addAdmin(admin);
 	}
 
-	public boolean deleteAdmin(int adminId) {
+	public boolean deleteAdmin(String  adminId) {
 		return adminDao.deleteAdmin(adminId)>0;
 		
 	}
 
-	public Admin findByAdminId(Integer adminId) {
+	public Admin findByAdminId(String  adminId) {
 		 
 		return adminDao.findByAdminId(adminId);
 	}

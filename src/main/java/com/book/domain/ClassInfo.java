@@ -8,7 +8,8 @@ package com.book.domain;
  */
 public class ClassInfo {
 	
-	private Integer classId;
+	private String  id;
+	private String classId;
 	private String  className;
 	public String getClassName() {
 		return className;
@@ -16,11 +17,17 @@ public class ClassInfo {
 	public void setClassName(String className) {
 		this.className = className;
 	}
-	public Integer getClassId() {
+	public String getClassId() {
 		return classId;
 	}
-	public void setClassId(Integer classId) {
+	public void setClassId(String classId) {
 		this.classId = classId;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

@@ -30,17 +30,17 @@ public class ReaderCardDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public int getMatchCount(int readerId,String passwd){
+    public int getMatchCount(String readerId,String passwd){
         return jdbcTemplate.queryForObject(MATCH_COUNT_SQL,new Object[]{readerId,passwd},Integer.class);
     }
 
-    public ReaderCard findReaderByReaderId(int userId){
+    public ReaderCard findReaderByReaderId(String userId){
         final ReaderCard readerCard=new ReaderCard();
         jdbcTemplate.query(FIND_READER_BY_USERID, new Object[]{userId},
                 //匿名类实现的回调函数
                 new RowCallbackHandler() {
                     public void processRow(ResultSet resultSet) throws SQLException {
-                        readerCard.setReaderId(resultSet.getInt("reader_id"));
+                        readerCard.setReaderId(resultSet.getString("reader_id"));
                         readerCard.setPasswd(resultSet.getString("passwd"));
                         readerCard.setName(resultSet.getString("name"));
                         readerCard.setCardState(resultSet.getInt("card_state"));
@@ -49,23 +49,23 @@ public class ReaderCardDao {
         return readerCard;
     }
 
-    public int rePassword(int readerId,String newPasswd){
+    public int rePassword(String readerId,String newPasswd){
         return jdbcTemplate.update(RE_PASSWORD_SQL,new Object[]{newPasswd,readerId});
     }
 
     public int addReaderCard(ReaderInfo readerInfo){
 
         String name=readerInfo.getName();
-        int readerId=readerInfo.getReaderId();
+        String readerId=readerInfo.getReaderId();
 
         return jdbcTemplate.update(ADD_READERCARD_SQL,new Object[]{readerId,name});
     }
 
-    public int updateName(int readerId,String name){
+    public int updateName(String readerId,String name){
         return jdbcTemplate.update(UPDATE_READER_NAME_SQL,new Object[]{name,readerId,});
     }
     
-    public int deleteByReadCard(int readId){
+    public int deleteByReadCard(String readId){
     	return jdbcTemplate.update(DELETE_READ_SQL,readId);
     }
 }

@@ -24,7 +24,7 @@ public class BookDictionariesDao {
 	private final static String DELETE_BOOK_SQL = "delete from book_info where book_id = ?  ";
 	private final static String EDIT_BOOK_SQL = "update book_dictionaries set name= ? ,author= ? ,publish= ? ,ISBN= ? ,introduction= ? ,language= ? ,price= ? ,pubdate= ? ,class_id= ? ,pressmark= ? ,state= ?   where id= ?  ";
 
-	private final static String QUERY_ALL_BOOKS_SQL = "SELECT * FROM book_dictionaries ";
+	private final static String QUERY_ALL_BOOKS_SQL = "SELECT * FROM book_dictionaries";
 
 	private final static String ADD_BOOK_SQL = "INSERT INTO book_dictionaries VALUES(? ,?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -48,9 +48,9 @@ public class BookDictionariesDao {
 					bookDictionaries.setBookId(rs.getLong("book_id"));
 					bookDictionaries.setAuthor(rs.getString("author"));
 					bookDictionaries.setIntroduction(rs.getString("introduction"));
-					bookDictionaries.setPressmark(rs.getInt("pressmark"));
+					bookDictionaries.setPressmark(rs.getString("pressmark"));
 					bookDictionaries.setLanguage(rs.getString("language"));
-					bookDictionaries.setClassId(rs.getInt("class_id"));
+					bookDictionaries.setClassId(rs.getString("class_id"));
 					bookDictionaries.setState(rs.getInt("state"));
 					bookDictionaries.setPrice(rs.getBigDecimal("price"));
 					bookDictionaries.setPublish(rs.getString("publish"));
@@ -81,12 +81,12 @@ public class BookDictionariesDao {
 			public void processRow(ResultSet resultSet) throws SQLException {
 				bookDictionaries.setAuthor(resultSet.getString("author"));
 				bookDictionaries.setBookId(resultSet.getLong("book_id"));
-				bookDictionaries.setClassId(resultSet.getInt("class_id"));
+				bookDictionaries.setClassId(resultSet.getString("class_id"));
 				bookDictionaries.setIntroduction(resultSet.getString("introduction"));
 				bookDictionaries.setIsbn(resultSet.getString("isbn"));
 				bookDictionaries.setLanguage(resultSet.getString("language"));
 				bookDictionaries.setName(resultSet.getString("name"));
-				bookDictionaries.setPressmark(resultSet.getInt("pressmark"));
+				bookDictionaries.setPressmark(resultSet.getString("pressmark"));
 				bookDictionaries.setPubdate(resultSet.getDate("pubdate"));
 				bookDictionaries.setPrice(resultSet.getBigDecimal("price"));
 				bookDictionaries.setState(resultSet.getInt("state"));
@@ -104,12 +104,12 @@ public class BookDictionariesDao {
 				book.setId(resultSet.getString("id"));
 				book.setAuthor(resultSet.getString("author"));
 				book.setBookId(resultSet.getLong("book_id"));
-				book.setClassId(resultSet.getInt("class_id"));
+				book.setClassId(resultSet.getString("class_id"));
 				book.setIntroduction(resultSet.getString("introduction"));
 				book.setIsbn(resultSet.getString("isbn"));
 				book.setLanguage(resultSet.getString("language"));
 				book.setName(resultSet.getString("name"));
-				book.setPressmark(resultSet.getInt("pressmark"));
+				book.setPressmark(resultSet.getString("pressmark"));
 				book.setPubdate(resultSet.getDate("pubdate"));
 				book.setPrice(resultSet.getBigDecimal("price"));
 				book.setState(resultSet.getInt("state"));
@@ -129,8 +129,8 @@ public class BookDictionariesDao {
         String language=book.getLanguage();
         BigDecimal price=book.getPrice();
         Date pubdate=book.getPubdate();
-        int classId=book.getClassId();
-        int pressmark=book.getPressmark();
+        String  classId=book.getClassId();
+        String  pressmark=book.getPressmark();
         int state=book.getState();
         return jdbcTemplate.update(EDIT_BOOK_SQL,new Object[]{name,author,publish,isbn,introduction,language,price,pubdate,classId,pressmark,state,id});
     }

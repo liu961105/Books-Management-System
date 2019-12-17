@@ -94,7 +94,7 @@ body {
 										type="button" class="btn btn-info btn-xs">编辑</button></a></td>
 							<td><button type="button"
 									class="btn btn-success btn-xs  showTm"
-									data-pkid="${book.bookId}">查看图书条码</button></td>
+									data-pkid="${book.bookId}" data-qtid =  "${book.id}">查看图书条码</button></td>
 							<%-- <td><a href="deletebook.html?bookId=<c:out value="${book.bookId}"></c:out>"><button type="button" class="btn btn-danger btn-xs">删除</button></a></td> --%>
 						</tr>
 					</c:forEach>
@@ -110,10 +110,14 @@ body {
 					<div id="thisDiv">
 						<div class="layui-input-block">
 							<div class="layui-upload">
+								<h3>北京师范大学贵阳市附属小学</h3>
 								<img alt="" src="" id="thisImg">
 							</div>
 							<div class="layui-upload">
-								<label id="thisLable" style="font-size: 30px"></label>
+								<label id="tsbm" style="font-size: 30px"></label>
+							</div>
+							<div class = "layui-upload" style="margin-top: 10px">
+								<label id = "flbm" style="font-size: 30px"></label>
 							</div>
 						</div>
 					</div>
@@ -132,6 +136,7 @@ body {
 <script type="text/javascript">
 	$(".showTm").on('click', function() {
 		var bookid = $(this).data('pkid');
+		var id = $(this).data('qtid');
 		$.get("https://www.mxnzp.com/api/barcode/create", {
 			"content" : bookid,
 			"width" : 300,
@@ -147,8 +152,14 @@ body {
 					area : [ '30%', '40%' ],
 					content : $("#importDiv")
 				})
+				$.post("${ctx }/bookDictionaries/findByBookId",{"id":id},function(res){
+					if(res.success=="1"){
+						var flbm = res.data.pubdate+"/"+res.data.classId+"/"+res.data.pressmark;
+						$("#flbm").text(flbm);
+					}
+				})
 				$("#thisImg").attr("src", barCodeUrl)
-				$("#thisLable").text(bookid);
+				$("#tsbm").text(bookid);
 			}
 		})
 	})

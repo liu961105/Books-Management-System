@@ -19,7 +19,7 @@ body {
 				<h3 class="panel-title">编辑《 ${classInfo.className}》</h3>
 			</div>
 			<div class="panel-body">
-				<form action="classInfoEdit?id=${classInfo.classId}"
+				<form action="classInfoEdit?id=${classInfo.id}"
 					method="post" id="addbook">
 					<div class="input-group">
 						<span class="input-group-addon">分类编码</span> <input type="text"

@@ -89,7 +89,7 @@ public class LendController extends BaseController {
 	@RequestMapping("/returnbook.html")
 	public String bookReturn(HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		long bookId = Integer.parseInt(request.getParameter("id"));
-		int readerId =  Integer.parseInt(request.getParameter("readerId"));
+		String readerId =  request.getParameter("readerId");
 		 Lend sernum = lendService.getSernum(bookId,readerId);
 		boolean retSucc = lendService.bookReturn(sernum.getSernum(),bookId);
 		if (retSucc) {
@@ -127,7 +127,7 @@ public class LendController extends BaseController {
 	 */
 	@RequestMapping("getReadName")
 	@ResponseBody
-	public ResultEntity getReadName(int readerId) {
+	public ResultEntity getReadName(String  readerId) {
 		ResultEntity res = new ResultEntity();
 		ReaderInfo entity = lendService.getReadName(readerId);
 		if (entity != null) {

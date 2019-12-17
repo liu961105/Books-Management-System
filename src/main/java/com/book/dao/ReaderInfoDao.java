@@ -44,7 +44,7 @@ public class ReaderInfoDao {
 					reader.setAddress(resultSet.getString("address"));
 					reader.setBirth(resultSet.getDate("birth"));
 					reader.setName(resultSet.getString("name"));
-					reader.setReaderId(resultSet.getInt("reader_id"));
+					reader.setReaderId(resultSet.getString("reader_id"));
 					reader.setSex(resultSet.getString("sex"));
 					reader.setTelcode(resultSet.getString("telcode"));
 					reader.setSchoolName(resultSet.getString("school_name"));
@@ -61,14 +61,14 @@ public class ReaderInfoDao {
 		this.jdbcTemplate = jdbcTemplate;
 	}
 
-	public ReaderInfo findReaderInfoByReaderId(int readerId) {
+	public ReaderInfo findReaderInfoByReaderId(String readerId) {
 		final ReaderInfo reader = new ReaderInfo();
 		jdbcTemplate.query(GET_READER_INFO_SQL, new Object[] { readerId }, new RowCallbackHandler() {
 			public void processRow(ResultSet resultSet) throws SQLException {
 				reader.setAddress(resultSet.getString("address"));
 				reader.setBirth(resultSet.getDate("birth"));
 				reader.setName(resultSet.getString("name"));
-				reader.setReaderId(resultSet.getInt("reader_id"));
+				reader.setReaderId(resultSet.getString("reader_id"));
 				reader.setSex(resultSet.getString("sex"));
 				reader.setTelcode(resultSet.getString("telcode"));
 				reader.setSchoolName(resultSet.getString("school_name"));
@@ -88,7 +88,7 @@ public class ReaderInfoDao {
 				reader.setAddress(resultSet.getString("address"));
 				reader.setBirth(resultSet.getDate("birth"));
 				reader.setName(resultSet.getString("name"));
-				reader.setReaderId(resultSet.getInt("reader_id"));
+				reader.setReaderId(resultSet.getString("reader_id"));
 				reader.setSex(resultSet.getString("sex"));
 				reader.setTelcode(resultSet.getString("telcode"));
 				reader.setSchoolName(resultSet.getString("school_name"));
@@ -98,7 +98,7 @@ public class ReaderInfoDao {
 		return reader;
 	}
 
-	public int deleteReaderInfo(int readerId) {
+	public int deleteReaderInfo(String readerId) {
 		return jdbcTemplate.update(DELETE_READER_INFO_SQL, readerId);
 	}
 
@@ -106,7 +106,7 @@ public class ReaderInfoDao {
 		String address = readerInfo.getAddress();
 		Date birth = readerInfo.getBirth();
 		String name = readerInfo.getName();
-		int readerId = readerInfo.getReaderId();
+		String readerId = readerInfo.getReaderId();
 		String sex = readerInfo.getSex();
 		String telcode = readerInfo.getTelcode();
 		return jdbcTemplate.update(UPDATE_READER_INFO, new Object[] { name, sex, birth, address, telcode, readerId });
@@ -118,7 +118,7 @@ public class ReaderInfoDao {
 		String name = readerInfo.getName();
 		String sex = readerInfo.getSex();
 		String telcode = readerInfo.getTelcode();
-		int readerId = readerInfo.getReaderId();
+		String readerId = readerInfo.getReaderId();
 
 		return jdbcTemplate.update(ADD_READER_INFO_SQL, new Object[] { readerId, name, sex, birth, address, telcode,
 				readerInfo.getSchoolName(), readerInfo.getClassName() });
@@ -142,7 +142,7 @@ public class ReaderInfoDao {
 					readerInfo.setAddress(rs.getString("address"));
 					readerInfo.setBirth(rs.getDate("birth"));
 					readerInfo.setName(rs.getString("name"));
-					readerInfo.setReaderId(rs.getInt("reader_id"));
+					readerInfo.setReaderId(rs.getString("reader_id"));
 					readerInfo.setSex(rs.getString("sex"));
 					readerInfo.setTelcode(rs.getString("telcode"));
 					readerInfo.setSchoolName(rs.getString("school_name"));

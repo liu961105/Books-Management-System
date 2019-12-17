@@ -56,7 +56,7 @@ public class AdminController extends BaseController {
 
 	@RequestMapping("deleteAdmin")
 	@ResponseBody
-	public ResultEntity deleteAdmin(int adminId) {
+	public ResultEntity deleteAdmin(String  adminId) {
 		ResultEntity res = new ResultEntity();
 		try {
 			boolean success = adminService.deleteAdmin(adminId);
@@ -75,7 +75,7 @@ public class AdminController extends BaseController {
 	}
 
 	@RequestMapping("toEditAdmin")
-	public ModelAndView toEditAdmin(Integer adminId) {
+	public ModelAndView toEditAdmin(String  adminId) {
 		Admin admin = adminService.findByAdminId(adminId);
 		ModelAndView modelAndView = new ModelAndView("admin_edit");
 		modelAndView.addObject("admin", admin);

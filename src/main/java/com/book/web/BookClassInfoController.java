@@ -35,9 +35,6 @@ public class BookClassInfoController extends BaseController {
 	 */
 	@RequestMapping("getClassInfo")
 	public ModelAndView getClassInfo() {
-
-		
-		
 		List<ClassInfo> classInfos = classInfoService.getClassInfos();
 		ModelAndView modelAndView = new ModelAndView("book_classInfo");
 		modelAndView.addObject("classInfos", classInfos);
@@ -81,16 +78,16 @@ public class BookClassInfoController extends BaseController {
 	 */
 	@RequestMapping("classInfoDetail")
 	public ModelAndView classInfoDetail(HttpServletRequest request) {
-		int classId = Integer.parseInt(request.getParameter("classId"));
-		ClassInfo classInfo = classInfoService.findByClassId(classId);
+		String    id =request.getParameter("id");
+		ClassInfo classInfo = classInfoService.findByClassId(id);
 		ModelAndView modelAndView = new ModelAndView("classInfo_detail");
 		modelAndView.addObject("classInfo", classInfo);
 		return modelAndView;
 	}
 
 	@RequestMapping("toClassInfoEdit")
-	public ModelAndView toEdit(String classId) {
-		ClassInfo classInfo = classInfoService.findByClassId(Integer.parseInt(classId));
+	public ModelAndView toEdit(String  id) {
+		ClassInfo classInfo = classInfoService.findByClassId(id);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("classInfo_edit");
 		modelAndView.addObject("classInfo", classInfo);
@@ -114,10 +111,9 @@ public class BookClassInfoController extends BaseController {
 	 */
 	@RequestMapping("classInfoDelete")
 	@ResponseBody
-	public ResultEntity classInfoDelete(int classId) {
+	public ResultEntity classInfoDelete(String   id) {
 		ResultEntity res = new ResultEntity();
-
-		boolean success = classInfoService.deleteClassInfo(classId);
+		boolean success = classInfoService.deleteClassInfo(id);
 		if (success) {
 			res.setSuccess(SUCCESS);
 			res.setMessage(GET_SUCCESS);

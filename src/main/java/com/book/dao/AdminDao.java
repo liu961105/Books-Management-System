@@ -37,15 +37,15 @@ public class AdminDao {
 
 	private static final String EDIT_ADMIN_SQL = "UPDATE admin set admin_name = ?,admin_age = ?, gender = ?, address = ?,phone = ? where admin_id = ?";
 
-	public int getMatchCount(int adminId, String password) {
+	public int getMatchCount(String  adminId, String password) {
 		return jdbcTemplate.queryForObject(MATCH_ADMIN_SQL, new Object[] { adminId, password }, Integer.class);
 	}
 
-	public int rePassword(int adminId, String newPasswd) {
+	public int rePassword(String  adminId, String newPasswd) {
 		return jdbcTemplate.update(RE_PASSWORD_SQL, new Object[] { newPasswd, adminId });
 	}
 
-	public String getPasswd(int id) {
+	public String getPasswd(String id) {
 		return jdbcTemplate.queryForObject(GET_PASSWD_SQL, new Object[] { id }, String.class);
 	}
 
@@ -60,7 +60,7 @@ public class AdminDao {
 				while (resultSet.next()) {
 					Admin admin = new Admin();
 					admin.setAdminName(resultSet.getString("admin_name"));
-					admin.setAdminId(resultSet.getInt("admin_id"));
+					admin.setAdminId(resultSet.getString("admin_id"));
 					admin.setPassword(resultSet.getString("password"));
 					admin.setAdminage(resultSet.getString("admin_age"));
 					admin.setGender(resultSet.getString("gender"));
@@ -81,18 +81,18 @@ public class AdminDao {
 				admin.getAdminage(), admin.getGender(), admin.getAddress(), admin.getPhone() });
 	}
 
-	public int deleteAdmin(int adminId) {
+	public int deleteAdmin(String adminId) {
 
 		return jdbcTemplate.update(DELETE_ADMIN_SQL, adminId);
 	}
 
-	public Admin findByAdminId(Integer adminId) {
+	public Admin findByAdminId(String adminId) {
 		final Admin admin = new Admin();
 		jdbcTemplate.query(FIND_BY_ADMINID_SQL, new Object[] { adminId }, new RowCallbackHandler() {
 
 			@Override
 			public void processRow(ResultSet rs) throws SQLException {
-				admin.setAdminId(rs.getInt("admin_id"));
+				admin.setAdminId(rs.getString("admin_id"));
 				admin.setAdminName(rs.getString("admin_name"));
 				admin.setAdminage(rs.getString("admin_age"));
 				admin.setGender(rs.getString("gender"));
@@ -100,6 +100,8 @@ public class AdminDao {
 				admin.setPhone(rs.getString("phone"));
 			}
 		});
+		
+		
 		return admin;
 	}
 

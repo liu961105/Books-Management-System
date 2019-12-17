@@ -36,9 +36,9 @@ public class BookImport implements IExcelModel {
 	@Excel(name = "出版日期")
 	Date  pubdate;
 	@Excel(name = "分类号")
-	Integer classId;
+	String  classId;
 	@Excel(name = "书架号")
-	Integer pressmark;
+	String pressmark;
 	@Excel(name = "状态")
 	Integer state;
 	@Excel(name = "数量")
@@ -111,19 +111,19 @@ public class BookImport implements IExcelModel {
 		this.pubdate = pubdate;
 	}
 
-	public int getClassId() {
+	public String getClassId() {
 		return classId;
 	}
 
-	public void setClassId(Integer classId) {
+	public void setClassId(String classId) {
 		this.classId = classId;
 	}
 
-	public int getPressmark() {
+	public String getPressmark() {
 		return pressmark;
 	}
 
-	public void setPressmark(Integer pressmark) {
+	public void setPressmark(String pressmark) {
 		this.pressmark = pressmark;
 	}
 

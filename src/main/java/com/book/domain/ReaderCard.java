@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class ReaderCard implements Serializable{
 
-    private int readerId;
+    private String  readerId;
     private String name;
     private String passwd;
     private int cardState;
@@ -21,11 +21,11 @@ public class ReaderCard implements Serializable{
         this.passwd = passwd;
     }
 
-    public void setReaderId(int readerId) {
+    public void setReaderId(String readerId) {
         this.readerId = readerId;
     }
 
-    public int getReaderId() {
+    public String getReaderId() {
         return readerId;
     }
 

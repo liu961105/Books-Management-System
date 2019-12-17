@@ -25,16 +25,16 @@ public class ClassInfoService {
 		return classInfoDao.classInfoSave(classInfo);
 	}
 	
-	public ClassInfo findByClassId(int classId){
-		return classInfoDao.findByClassId(classId);
+	public ClassInfo findByClassId(String  id){
+		return classInfoDao.findByClassId(id);
 	}
 	public int  editClassInfo(ClassInfo classInfo) {
 		return classInfoDao.editClassInfo(classInfo);
 		
 	}
 
-	public boolean deleteClassInfo(int classId) {
-		 return classInfoDao.deleteClassInfo(classId)>0;
+	public boolean deleteClassInfo(String  id) {
+		 return classInfoDao.deleteClassInfo(id)>0;
 		
 	}
 }

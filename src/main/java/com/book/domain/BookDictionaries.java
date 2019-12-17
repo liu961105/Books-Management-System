@@ -20,8 +20,8 @@ public class BookDictionaries {
 	private String language;
 	private BigDecimal price;
 	private Date pubdate;
-	private int classId;
-	private int pressmark;
+	private String classId;
+	private String  pressmark;
 	private int state;
 
 	public String getId() {
@@ -104,19 +104,19 @@ public class BookDictionaries {
 		this.pubdate = pubdate;
 	}
 
-	public int getClassId() {
+	public String getClassId() {
 		return classId;
 	}
 
-	public void setClassId(int classId) {
+	public void setClassId(String classId) {
 		this.classId = classId;
 	}
 
-	public int getPressmark() {
+	public String getPressmark() {
 		return pressmark;
 	}
 
-	public void setPressmark(int pressmark) {
+	public void setPressmark(String pressmark) {
 		this.pressmark = pressmark;
 	}
 

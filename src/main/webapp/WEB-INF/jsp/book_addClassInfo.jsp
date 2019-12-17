@@ -41,8 +41,8 @@ body {
 		}
 
 		$("#addbook").submit(function() {
-			if (isNaN($("#classId").val())) {
-				layer.msg("分类编码必须为纯数字！", {
+			if ($("#classId").val()=="") {
+				layer.msg("分类编码为必填项！", {
 					icon : 5
 				});
 				return mySubmit(false);

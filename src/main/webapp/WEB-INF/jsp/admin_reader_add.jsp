@@ -19,6 +19,10 @@ body {
 			</div>
 			<div class="panel-body">
 				<form action="reader_add_do.html" method="post" id="readeredit">
+				<div class="input-group">
+						<span class="input-group-addon">登录用户名</span> <input type="text"
+							class="form-control" name="readerId" id="readerId">
+					</div>
 					<div class="input-group">
 						<span class="input-group-addon">姓名</span> <input type="text"
 							class="form-control" name="name" id="name">

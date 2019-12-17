@@ -68,8 +68,8 @@ body {
 		}
 
 		$("#addbook").submit(function() {
-			if (isNaN($("#adminId").val())) {
-				layer.msg("用户名必须为纯数字！", {
+			if ($("#adminId").val()=="") {
+				layer.msg("用户名为必填项！", {
 					icon : 5
 				});
 				return mySubmit(false);

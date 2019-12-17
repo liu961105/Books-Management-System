@@ -49,12 +49,12 @@ public class BookDao {
                     Book book =new Book();
                     book.setAuthor(resultSet.getString("author"));
                     book.setBookId(resultSet.getLong("book_id"));
-                    book.setClassId(resultSet.getInt("class_id"));
+                    book.setClassId(resultSet.getString("class_id"));
                     book.setIntroduction(resultSet.getString("introduction"));
                     book.setIsbn(resultSet.getString("isbn"));
                     book.setLanguage(resultSet.getString("language"));
                     book.setName(resultSet.getString("name"));
-                    book.setPressmark(resultSet.getInt("pressmark"));
+                    book.setPressmark(resultSet.getString("pressmark"));
                     book.setPubdate(resultSet.getDate("pubdate"));
                     book.setPrice(resultSet.getBigDecimal("price"));
                     book.setState(resultSet.getInt("state"));
@@ -84,11 +84,11 @@ public class BookDao {
                         book.setPubdate(resultSet.getDate("pubdate"));
                         book.setName(resultSet.getString("name"));
                         book.setIsbn(resultSet.getString("isbn"));
-                        book.setClassId(resultSet.getInt("class_id"));
+                        book.setClassId(resultSet.getString("class_id"));
                         book.setBookId(resultSet.getLong("book_id"));
                         book.setAuthor(resultSet.getString("author"));
                         book.setIntroduction(resultSet.getString("introduction"));
-                        book.setPressmark(resultSet.getInt("pressmark"));
+                        book.setPressmark(resultSet.getString("pressmark"));
                         book.setLanguage(resultSet.getString("language"));
                         book.setNumber(resultSet.getInt("number"));
                         book.setInNumber(resultSet.getInt("in_number"));
@@ -115,8 +115,8 @@ public class BookDao {
         String language=book.getLanguage();
         BigDecimal price=book.getPrice();
         Date pubdate=book.getPubdate();
-        int classId=book.getClassId();
-        int pressmark=book.getPressmark();
+        String  classId=book.getClassId();
+        String pressmark=book.getPressmark();
         int state=book.getState();
         int number = book.getNumber();
        // int inNumber = book.getInNumber();
@@ -131,12 +131,12 @@ public class BookDao {
             public void processRow(ResultSet resultSet) throws SQLException {
                     book.setAuthor(resultSet.getString("author"));
                     book.setBookId(resultSet.getLong("book_id"));
-                    book.setClassId(resultSet.getInt("class_id"));
+                    book.setClassId(resultSet.getString("class_id"));
                     book.setIntroduction(resultSet.getString("introduction"));
                     book.setIsbn(resultSet.getString("isbn"));
                     book.setLanguage(resultSet.getString("language"));
                     book.setName(resultSet.getString("name"));
-                    book.setPressmark(resultSet.getInt("pressmark"));
+                    book.setPressmark(resultSet.getString("pressmark"));
                     book.setPubdate(resultSet.getDate("pubdate"));
                     book.setPrice(resultSet.getBigDecimal("price"));
                     book.setState(resultSet.getInt("state"));
@@ -159,8 +159,8 @@ public class BookDao {
         String language=book.getLanguage();
         BigDecimal price=book.getPrice();
         Date pubdate=book.getPubdate();
-        int classId=book.getClassId();
-        int pressmark=book.getPressmark();
+        String classId=book.getClassId();
+        String pressmark=book.getPressmark();
         int state=book.getState();
         int number = book.getNumber();
         return jdbcTemplate.update(EDIT_BOOK_SQL,new Object[]{name,author,publish,isbn,introduction,language,price,pubdate,classId,pressmark,state,number,number,bookId});

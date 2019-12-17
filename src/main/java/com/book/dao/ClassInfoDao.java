@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.book.domain.ClassInfo;
 import com.book.domain.Lend;
+import com.book.util.UUIDUtil;
 
 /**
  * 分类维护Dao
@@ -25,13 +26,13 @@ public class ClassInfoDao {
 	private JdbcTemplate jdbcTemplate;
 
 	// 所有分类
-	private final static String ALL_CLASS_INFO_SQL = "select * from class_info";
+	private final static String ALL_CLASS_INFO_SQL = "select * from class_info order by  class_id";
 	// 添加分类
-	private final static String ADD_CLASS_INFO_SQL = "insert into class_info values(?,?)";
+	private final static String ADD_CLASS_INFO_SQL = "insert into class_info values(?,?,?)";
 
-	private final static String FIND_BY_CLASSID_SQL = "select * from class_info where class_id = ? ";
-	private final static String EDIT_CLASS_INFO_SQL = "update class_info  set  class_name = ? where class_id = ?";
-	private final static String DELETE_CLASS_INFO_SQL = "delete from class_info where class_id = ?";
+	private final static String FIND_BY_CLASSID_SQL = "select * from class_info where id = ? ";
+	private final static String EDIT_CLASS_INFO_SQL = "update class_info  set  class_name = ? where id = ?";
+	private final static String DELETE_CLASS_INFO_SQL = "delete from class_info where id = ?";
 
 	public List<ClassInfo> getAllClassInfos() {
 		final List<ClassInfo> list = new ArrayList<ClassInfo>();
@@ -41,7 +42,8 @@ public class ClassInfoDao {
 				rs.beforeFirst();
 				while (rs.next()) {
 					ClassInfo classInfo = new ClassInfo();
-					classInfo.setClassId(rs.getInt("class_id"));
+					classInfo.setId(rs.getString("id"));
+					classInfo.setClassId(rs.getString("class_id"));
 					classInfo.setClassName(rs.getString("class_name"));
 					list.add(classInfo);
 				}
@@ -53,16 +55,17 @@ public class ClassInfoDao {
 	public int classInfoSave(ClassInfo classInfo) {
 
 		return jdbcTemplate.update(ADD_CLASS_INFO_SQL,
-				new Object[] { classInfo.getClassId(), classInfo.getClassName() });
+				new Object[] { UUIDUtil.expordUuid(),classInfo.getClassId(), classInfo.getClassName() });
 	}
 
-	public ClassInfo findByClassId(int classId) {
+	public ClassInfo findByClassId(String  id) {
 		final ClassInfo classInfo = new ClassInfo();
-		jdbcTemplate.query(FIND_BY_CLASSID_SQL, new Object[] { classId }, new RowCallbackHandler() {
+		jdbcTemplate.query(FIND_BY_CLASSID_SQL, new Object[] { id }, new RowCallbackHandler() {
 
 			@Override
 			public void processRow(ResultSet rs) throws SQLException {
-				classInfo.setClassId(rs.getInt("class_id"));
+				classInfo.setId(rs.getString("id"));
+				classInfo.setClassId(rs.getString("class_id"));
 				classInfo.setClassName(rs.getString("class_name"));
 			}
 		});
@@ -71,12 +74,12 @@ public class ClassInfoDao {
 
 	public int editClassInfo(ClassInfo classInfo) {
 		return jdbcTemplate.update(EDIT_CLASS_INFO_SQL,
-				new Object[] { classInfo.getClassName(), classInfo.getClassId() });
+				new Object[] { classInfo.getClassName(), classInfo.getId() });
 
 	}
 
-	public int deleteClassInfo(int classId) {
-		return jdbcTemplate.update(DELETE_CLASS_INFO_SQL, classId);
+	public int deleteClassInfo(String  id) {
+		return jdbcTemplate.update(DELETE_CLASS_INFO_SQL, id);
 	}
 
 }

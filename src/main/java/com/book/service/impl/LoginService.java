@@ -29,25 +29,25 @@ public class LoginService {
         this.adminDao = adminDao;
     }
 
-    public boolean hasMatchReader(int readerId,String passwd){
+    public boolean hasMatchReader(String readerId,String passwd){
         return  readerCardDao.getMatchCount(readerId, passwd)>0;
     }
 
-    public ReaderCard findReaderCardByUserId(int readerId){
+    public ReaderCard findReaderCardByUserId(String readerId){
         return readerCardDao.findReaderByReaderId(readerId);
     }
-    public ReaderInfo findReaderInfoByReaderId(int readerId){
+    public ReaderInfo findReaderInfoByReaderId(String readerId){
         return readerInfoDao.findReaderInfoByReaderId(readerId);
     }
 
-    public boolean hasMatchAdmin(int adminId,String password){
+    public boolean hasMatchAdmin(String  adminId,String password){
         return adminDao.getMatchCount(adminId,password)==1;
     }
 
-    public boolean adminRePasswd(int adminId,String newPasswd){
+    public boolean adminRePasswd(String  adminId,String newPasswd){
         return adminDao.rePassword(adminId,newPasswd)>0;
     }
-    public String getAdminPasswd(int id){
+    public String getAdminPasswd(String  id){
         return adminDao.getPasswd(id);
     }
 

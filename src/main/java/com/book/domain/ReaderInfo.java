@@ -9,7 +9,7 @@ public class ReaderInfo implements Serializable{
      *  reader_info  
      */
 	private static final long serialVersionUID = 1L;
-	private int readerId;
+	private String  readerId;
     private String name;
     private String sex;
     private Date birth;
@@ -25,7 +25,7 @@ public class ReaderInfo implements Serializable{
         this.name = name;
     }
 
-    public void setReaderId(int readerId) {
+    public void setReaderId(String readerId) {
         this.readerId = readerId;
     }
 
@@ -49,7 +49,7 @@ public class ReaderInfo implements Serializable{
         return name;
     }
 
-    public int getReaderId() {
+    public String getReaderId() {
         return readerId;
     }
 

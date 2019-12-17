@@ -78,8 +78,7 @@ public class ReaderController {
 	 * @return
 	 */
 	@RequestMapping("reader_delete.html")
-	public String readerDelete(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		int readerId = Integer.parseInt(request.getParameter("readerId"));
+	public String readerDelete(HttpServletRequest request, RedirectAttributes redirectAttributes,String readerId) {
 		boolean success = readerInfoService.deleteReaderInfo(readerId);
 		boolean readCard = readerCardService.deleteReader(readerId);
 		if (success && readCard) {
@@ -103,8 +102,7 @@ public class ReaderController {
 	}
 
 	@RequestMapping("reader_edit.html")
-	public ModelAndView readerInfoEdit(HttpServletRequest request) {
-		int readerId = Integer.parseInt(request.getParameter("readerId"));
+	public ModelAndView readerInfoEdit(HttpServletRequest request,String readerId) {
 		ReaderInfo readerInfo = readerInfoService.getReaderInfo(readerId);
 		ModelAndView modelAndView = new ModelAndView("admin_reader_edit");
 		modelAndView.addObject("readerInfo", readerInfo);
@@ -114,9 +112,9 @@ public class ReaderController {
 	// 跳转到二维码
 	@RequestMapping("reader_show")
 	public ModelAndView readInfoShow(HttpServletRequest request) {
-		int readerId = Integer.parseInt(request.getParameter("readerId"));
+		String readerId = request.getParameter("readerId");
 		ReaderInfo readerInfo = readerInfoService.getReaderInfo(readerId);
-		int text = readerInfo.getReaderId();
+		String text = readerInfo.getReaderId();
 		String destPath = "E:\\img\\" + readerInfo.getName() + readerInfo.getReaderId() + ".jpg";
 		// 取出id
 		try {
@@ -135,7 +133,7 @@ public class ReaderController {
 	@RequestMapping("reader_edit_do.html")
 	public String readerInfoEditDo(HttpServletRequest request, String name, String sex, String birth, String address,
 			String telcode, RedirectAttributes redirectAttributes) {
-		int readerId = Integer.parseInt(request.getParameter("id"));
+		String readerId = request.getParameter("id");
 		ReaderCard readerCard = loginService.findReaderCardByUserId(readerId);
 		String oldName = readerCard.getName();
 		if (!oldName.equals(name)) {
@@ -213,7 +211,7 @@ public class ReaderController {
 	public String readerRePasswdDo(HttpServletRequest request, String oldPasswd, String newPasswd, String reNewPasswd,
 			RedirectAttributes redirectAttributes) {
 		ReaderCard readerCard = (ReaderCard) request.getSession().getAttribute("readercard");
-		int readerId = readerCard.getReaderId();
+		String readerId = readerCard.getReaderId();
 		String passwd = readerCard.getPasswd();
 
 		if (newPasswd.equals(reNewPasswd)) {
@@ -242,7 +240,7 @@ public class ReaderController {
 
 	// 管理员功能--读者信息添加
 	@RequestMapping("reader_add_do.html")
-	public String readerInfoAddDo(String name, String sex, String birth, String address, String telcode,
+	public String readerInfoAddDo(String readerId,String name, String sex, String birth, String address, String telcode,
 			String schoolName, String className, RedirectAttributes redirectAttributes) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date nbirth = new Date();
@@ -256,6 +254,7 @@ public class ReaderController {
 		ReaderInfo readerInfo = new ReaderInfo();
 		readerInfo.setAddress(address);
 		readerInfo.setBirth(nbirth);
+		readerInfo.setReaderId(readerId);
 		readerInfo.setName(name);
 		readerInfo.setTelcode(telcode);
 		readerInfo.setSex(sex);
@@ -265,7 +264,7 @@ public class ReaderController {
 		boolean succ = readerInfoService.addReaderInfo(readerInfo);
 		ReaderInfo entity = readerInfoService.findByName(name);
 		boolean succc = readerCardService.addReaderCard(entity);
-		int text = entity.getReaderId();
+		String text = entity.getReaderId();
 		String destPath = "E:\\img\\" + readerInfo.getName() + text + ".jpg";
 		// 取出id
 		try {
@@ -379,7 +378,7 @@ public class ReaderController {
 	 * 查看读者借阅记录
 	 */
 	@RequestMapping("showReaderLend")
-	public ModelAndView showReaderLend(int readerId) {
+	public ModelAndView showReaderLend(String readerId) {
 		List<Lend> lendList = lendService.myLendList(readerId);
 		ModelAndView modelAndView = new ModelAndView("show_reader_lend_list");
 		modelAndView.addObject("lendList", lendList);

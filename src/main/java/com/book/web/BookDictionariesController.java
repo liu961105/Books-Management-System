@@ -121,6 +121,19 @@ public class BookDictionariesController extends BaseController {
 			return "redirect:/bookDictionaries/getBookDictionaries";
 		}
 	}
+	@RequestMapping("findByBookId")
+	@ResponseBody
+	public ResultEntity findById(String id){
+		ResultEntity res = new ResultEntity();
+		BookDictionaries bookDictionaries = bookDictionariesService.findById(id);
+		if (bookDictionaries!=null) {
+			res.setData(bookDictionaries);
+			res.setSuccess(SUCCESS);
+		}else{
+			res.setSuccess(ERROR);
+		}
+		return res;
+	}
 	
 
 }

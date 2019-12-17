@@ -21,10 +21,10 @@ body {
 			</div>
 
 			<div class="panel-body" id="thisDiv">
+				<h3>北京师范大学贵阳市附属小学</h3>
 				<div class="input-group">
-					<span class="input-group-addon">读者证号</span> <input
-						readonly="readonly" type="text" class="form-control"
-						name="readerId" id="readerId" value="${readerInfo.readerId}">
+					<span class="input-group-addon">读者证号:${readerInfo.readerId}</span> 
+					
 				</div>
 				<div class="input-group">
 					<img src="img/lzn1501014107.jpg" style="width:100%" id="thisImg">

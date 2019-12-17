@@ -8,7 +8,7 @@ package com.book.domain;
  */
 public class Admin {
 
-	private int adminId;
+	private String  adminId;
 	private String password;
 	private String adminName;
 	private String adminage;
@@ -40,11 +40,11 @@ public class Admin {
 		this.adminage = adminage;
 	}
 
-	public int getAdminId() {
+	public String  getAdminId() {
 		return adminId;
 	}
 
-	public void setAdminId(int adminId) {
+	public void setAdminId(String adminId) {
 		this.adminId = adminId;
 	}
 

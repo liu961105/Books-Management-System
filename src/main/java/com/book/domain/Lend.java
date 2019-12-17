@@ -13,7 +13,7 @@ public class Lend implements Serializable {
 
 	private long sernum;
 	private long bookId;
-	private int readerId;
+	private String  readerId;
 	private Date lendDate;
 	private Date backDate;
 	private String borrowingDay;
@@ -24,7 +24,7 @@ public class Lend implements Serializable {
 	
 	private String  returnDate;
 
-	public void setReaderId(int readerId) {
+	public void setReaderId(String  readerId) {
 		this.readerId = readerId;
 	}
 
@@ -44,7 +44,7 @@ public class Lend implements Serializable {
 		this.sernum = sernum;
 	}
 
-	public int getReaderId() {
+	public String getReaderId() {
 		return readerId;
 	}
 

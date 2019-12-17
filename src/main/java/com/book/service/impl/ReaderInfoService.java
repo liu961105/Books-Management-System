@@ -20,11 +20,11 @@ public class ReaderInfoService {
         return readerInfoDao.getAllReaderInfo();
     }
 
-    public boolean deleteReaderInfo(int readerId){
+    public boolean deleteReaderInfo(String readerId){
         return readerInfoDao.deleteReaderInfo(readerId)>0;
     }
 
-    public ReaderInfo getReaderInfo(int readerId){
+    public ReaderInfo getReaderInfo(String readerId){
         return readerInfoDao.findReaderInfoByReaderId(readerId);
     }
     public boolean editReaderInfo(ReaderInfo readerInfo){

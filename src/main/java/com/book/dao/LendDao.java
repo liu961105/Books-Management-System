@@ -79,7 +79,7 @@ public class LendDao {
 					lend.setBackDate(resultSet.getDate("back_date"));
 					lend.setBookId(resultSet.getLong("book_id"));
 					lend.setLendDate(resultSet.getDate("lend_date"));
-					lend.setReaderId(resultSet.getInt("reader_id"));
+					lend.setReaderId(resultSet.getString("reader_id"));
 					lend.setSernum(resultSet.getLong("sernum"));
 					lend.setBookName(resultSet.getString("book_name"));
 					lend.setReaderName(resultSet.getString("reader_name"));
@@ -91,7 +91,7 @@ public class LendDao {
 		return list;
 	}
 
-	public ArrayList<Lend> myLendList(int readerId) {
+	public ArrayList<Lend> myLendList(String  readerId) {
 		final ArrayList<Lend> list = new ArrayList<Lend>();
 
 		jdbcTemplate.query(MY_LEND_LIST_SQL, new Object[] { readerId }, new RowCallbackHandler() {
@@ -102,7 +102,7 @@ public class LendDao {
 					lend.setBackDate(resultSet.getDate("back_date"));
 					lend.setBookId(resultSet.getLong("book_id"));
 					lend.setLendDate(resultSet.getDate("lend_date"));
-					lend.setReaderId(resultSet.getInt("reader_id"));
+					lend.setReaderId(resultSet.getString("reader_id"));
 					lend.setSernum(resultSet.getLong("sernum"));
 					lend.setBookName(resultSet.getString("book_name"));
 					lend.setReaderName(resultSet.getString("reader_name"));
@@ -121,7 +121,7 @@ public class LendDao {
 			public void processRow(ResultSet rs) throws SQLException {
 				rs.beforeFirst();
 				while (rs.next()) {
-					lend.setReaderId(rs.getInt("reader_id"));
+					lend.setReaderId(rs.getString("reader_id"));
 				}
 			}
 		});
@@ -147,7 +147,7 @@ public class LendDao {
 					lend.setBackDate(rs.getDate("back_date"));
 					lend.setBookId(rs.getLong("book_id"));
 					lend.setLendDate(rs.getDate("lend_date"));
-					lend.setReaderId(rs.getInt("reader_id"));
+					lend.setReaderId(rs.getString("reader_id"));
 					lend.setSernum(rs.getLong("sernum"));
 					lend.setBookName(rs.getString("book_name"));
 					lend.setReaderName(rs.getString("reader_name"));
@@ -177,7 +177,7 @@ public class LendDao {
 					lend.setBackDate(rs.getDate("back_date"));
 					lend.setBookId(rs.getLong("book_id"));
 					lend.setLendDate(rs.getDate("lend_date"));
-					lend.setReaderId(rs.getInt("reader_id"));
+					lend.setReaderId(rs.getString("reader_id"));
 					lend.setSernum(rs.getLong("sernum"));
 					lend.setBookName(rs.getString("book_name"));
 					lend.setReaderName(rs.getString("reader_name"));
@@ -193,7 +193,7 @@ public class LendDao {
 		
 	}
 
-	public Lend getSernum(long bookId, int readerId) {
+	public Lend getSernum(long bookId, String readerId) {
 		Lend lend = new Lend();
 		jdbcTemplate.query(getSernum, new Object[] { bookId, readerId}, new RowCallbackHandler() {
 			@Override

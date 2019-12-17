@@ -16,14 +16,14 @@ public class ReaderCardService {
     public boolean addReaderCard(ReaderInfo readerInfo){
         return  readerCardDao.addReaderCard(readerInfo)>0;
     }
-    public boolean updatePasswd(int readerId,String passwd){
+    public boolean updatePasswd(String readerId,String passwd){
         return readerCardDao.rePassword(readerId,passwd)>0;
     }
-    public boolean updateName(int readerId,String name){
+    public boolean updateName(String readerId,String name){
         return readerCardDao.updateName(readerId,name)>0;
     }
     
-    public  boolean deleteReader (int readId){
+    public  boolean deleteReader (String readId){
     	return readerCardDao.deleteByReadCard(readId)>0;
 		
 	}

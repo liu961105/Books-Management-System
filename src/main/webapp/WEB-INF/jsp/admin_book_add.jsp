@@ -170,15 +170,17 @@ body {
 		*通过扫描书的条形码，调用接口查询书籍信息如果未收录该书，则需要到基础数据维护中手动添加该书信息
 		 */
 		$("#isbn").change(function() {
-			var isbn = $("#isbn").val();
+			 var isbn = $("#isbn").val();
+			 /*
 			$.post("https://www.mxnzp.com/api/barcode/goods/details", {
 				"barcode" : isbn
 			}, function(res) {
-				if (res.code == '0') {
+				if (res.code == '0') { */
 					$.post("${ctx}/bookDictionaries/checkISBN", {
 						"isbn" : isbn
 					}, function(res) {
 						if (res.success == "1") {
+						debugger
 							$("#name").val(res.data.name);
 							$("#author").val(res.data.author);
 							$("#publish").val(res.data.publish)
@@ -195,11 +197,11 @@ body {
 							})
 						}
 					})
-				} else {
+				/*}  else {
 					$("#price").val(res.data.price)
 					$("#name").val(res.data.goodsName);
 				}
-			})
+			}) */
 		})
 		$("#addbook").submit(function() {
 			if ($("#name").val() == '' || $("#author").val() == '' || $("#publish").val() == '' || $("#isbn").val() == '' || $("#introduction").val() == '' || $("#language").val() == '' || $("#price").val() == '' || $("#pubdate").val() == '' || $("#classId").val() == '' || $("#pressmark").val() == '' || $("#state").val() == '') {

@@ -35,13 +35,13 @@ public class LendService {
 		return lendDao.lendList();
 	}
 
-	public ArrayList<Lend> myLendList(int readerId) {
+	public ArrayList<Lend> myLendList(String readerId) {
 		return lendDao.myLendList(readerId);
 	}
 	/*
 	 * 根据读者证号查询姓名
 	 */
-	public ReaderInfo getReadName(int readerId){
+	public ReaderInfo getReadName(String readerId){
 		return readerInfoDao.findReaderInfoByReaderId(readerId);
 	}
 	/**
@@ -76,7 +76,7 @@ public class LendService {
 		return lendDao.checkReaderLog(bookId,readerId)>0;
 	}
 
-	public Lend  getSernum(long bookId, int readerId) {
+	public Lend  getSernum(long bookId, String readerId) {
 		return lendDao.getSernum(bookId,readerId);
 		
 	}

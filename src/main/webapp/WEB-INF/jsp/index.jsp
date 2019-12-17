@@ -220,8 +220,8 @@
     <script>
         $("#id").keyup(
             function () {
-                if(isNaN($("#id").val())){
-                    $("#info").text("提示:账号只能为数字");
+                if($("#id").val()==""){
+                    $("#info").text("提示:账号为必填项");
                 }
                 else {
                     $("#info").text("");
@@ -266,8 +266,8 @@
             else if( passwd ==''){
                 $("#info").text("提示:密码不能为空");
             }
-            else if(isNaN( id )){
-                $("#info").text("提示:账号必须为数字");
+            else if( id==""){
+                $("#info").text("提示:账号为必填项");
             }
             else {
                 $.ajax({
@@ -301,7 +301,6 @@
         })
 
     </script>
-</div>
 
 </body>
 </html>
