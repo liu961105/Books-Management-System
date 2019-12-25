@@ -125,7 +125,7 @@ public class ReaderController {
 
 		ModelAndView modelAndView = new ModelAndView("admin_reader_show");
 		modelAndView.addObject("readerInfo", readerInfo);
-
+		modelAndView.addObject("text",text);
 		return modelAndView;
 
 	}

@@ -23,11 +23,11 @@ body {
 			<div class="panel-body" id="thisDiv">
 				<h3>北京师范大学贵阳市附属小学</h3>
 				<div class="input-group">
-					<span class="input-group-addon">读者证号:${readerInfo.readerId}</span> 
-					
+					<span class="input-group-addon">读者证号:${readerInfo.readerId}</span>
+
 				</div>
 				<div class="input-group">
-					<img src="img/lzn1501014107.jpg" style="width:100%" id="thisImg">
+					<img src="" style="width:100%" id="thisImg">
 				</div>
 			</div>
 			<div class="input-group">
@@ -38,6 +38,15 @@ body {
 </body>
 </html>
 <script type="text/javascript">
+	$(function() {
+		init();
+	})
+	function init(){
+	var content = ${text};
+		$.post("https://www.mxnzp.com/api/qrcode/create/single",{"content":content,"type":0},function(res){
+			$("#thisImg").attr("src",res.data.qrCodeUrl)
+		})
+	}
 
 	$("#dyBtn").on('click', function() {
 		$("#thisDiv").printArea();

@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 import com.google.zxing.LuminanceSource;
 /**
- * 为谷歌提供的生成二维码的工具累
+ * 为谷歌提供的生成二维码的工具类
  * @author LZN
  *
  */
