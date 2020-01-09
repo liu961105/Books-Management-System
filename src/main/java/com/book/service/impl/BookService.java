@@ -40,8 +40,14 @@ public class BookService {
         Book book=bookDao.getBook(bookId);
         return book;
     }
+    public Book findByISBN(String isbn){
+        return bookDao.findByISBN(isbn);
+    }
     public boolean editBook(Book book){
         return bookDao.editBook(book)>0;
     }
 
+    public void addBookNumber(String isbn, Integer number) {
+        bookDao.addBookNumber(isbn,number);
+    }
 }

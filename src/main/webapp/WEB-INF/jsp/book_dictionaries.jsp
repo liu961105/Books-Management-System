@@ -154,7 +154,7 @@ body {
 				})
 				$.post("${ctx }/bookDictionaries/findByBookId",{"id":id},function(res){
 					if(res.success=="1"){
-						var flbm = res.data.pubdate+"/"+res.data.classId+"/"+res.data.pressmark;
+						var flbm = res.data.pubdate+"/"+res.data.classId/*+"/"+res.data.pressmark*/;
 						$("#flbm").text(flbm);
 					}
 				})

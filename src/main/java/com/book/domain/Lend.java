@@ -1,5 +1,8 @@
 package com.book.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,8 +24,13 @@ public class Lend implements Serializable {
 	// 新增字段
 	private String bookName;
 	private String readerName;
-	
 	private String  returnDate;
+	@Getter
+	@Setter
+	private String publish;
+	@Getter
+	@Setter
+	private String manager;
 
 	public void setReaderId(String  readerId) {
 		this.readerId = readerId;
@@ -95,4 +103,5 @@ public class Lend implements Serializable {
 	public void setReturnDate(String returnDate) {
 		this.returnDate = returnDate;
 	}
+
 }

@@ -7,10 +7,6 @@
 <script src="${ctx}/static/js/bootstrap.min.js"></script>
 <script src="${ctx}/static/layui/layui.js"></script>
 <script src="${ctx}/static/layer/layer.js"></script>
-<!--
-
-//-->
-</script>
 <link rel="stylesheet" href="${ctx}/static/layui/css/layui.css">
 <link rel="stylesheet" href="${ctx}/static/css/bootstrap.min.css">
 

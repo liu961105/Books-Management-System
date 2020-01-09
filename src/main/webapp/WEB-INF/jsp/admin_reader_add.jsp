@@ -55,6 +55,7 @@ body {
 						<span class="input-group-addon">电话</span> <input type="text"
 							class="form-control" name="telcode" id="telcode">
 					</div>
+
 					<input type="submit" value="保存并生成二维码"
 						class="btn btn-success btn-sm" class="text-left">
 					<script>

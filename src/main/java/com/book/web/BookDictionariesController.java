@@ -61,7 +61,6 @@ public class BookDictionariesController extends BaseController {
 		bookDictionaries.setClassId(bookAddCommand.getClassId());
 		bookDictionaries.setAuthor(bookAddCommand.getAuthor());
 		bookDictionaries.setIntroduction(bookAddCommand.getIntroduction());
-		bookDictionaries.setPressmark(bookAddCommand.getPressmark());
 		bookDictionaries.setLanguage(bookAddCommand.getLanguage());
 		int success = bookDictionariesService.save(bookDictionaries);
 		if (success > 0) {
@@ -77,8 +76,8 @@ public class BookDictionariesController extends BaseController {
 	@ResponseBody
 	public ResultEntity checkISBN(String isbn) {
 		ResultEntity res = new ResultEntity();
-		BookDictionaries bookDictionariesbook = bookDictionariesService.checkISBN(isbn);
-		if (bookDictionariesbook != null) {
+			BookDictionaries bookDictionariesbook = bookDictionariesService.checkISBN(isbn);
+		if (bookDictionariesbook.getId()!= null) {
 			res.setData(bookDictionariesbook);
 			res.setSuccess(SUCCESS);
 		} else {
@@ -110,7 +109,6 @@ public class BookDictionariesController extends BaseController {
 		book.setClassId(bookAddCommand.getClassId());
 		book.setAuthor(bookAddCommand.getAuthor());
 		book.setIntroduction(bookAddCommand.getIntroduction());
-		book.setPressmark(bookAddCommand.getPressmark());
 		book.setLanguage(bookAddCommand.getLanguage());
 		boolean succ = bookDictionariesService.editBook(book);
 		if (succ) {

@@ -31,6 +31,7 @@ public class AdminController extends BaseController {
 		ModelAndView modelAndView = new ModelAndView("admin_list");
 		modelAndView.addObject("admins", admins);
 		return modelAndView;
+
 	}
 
 	@RequestMapping("toAddadmin")

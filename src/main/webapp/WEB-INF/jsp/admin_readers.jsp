@@ -9,7 +9,6 @@ body {
 	background-color: rgb(240, 242, 245);
 }
 </style>
-
 </head>
 <body>
 	<!-- 搜索框 -->
@@ -42,24 +41,20 @@ body {
 		</script>
 	</div>
 	<!-- 搜索框完 -->
-	<c:if test="${!empty info}">
-		<script>alert("${info}");
-			window.location.href = "allreaders.html"
-		</script>
-	</c:if>
-	<div style="position: relative;top: 15%">
+
+	<div style="position: relative;top: 10%">
 		<c:if test="${!empty succ}">
 			<div class="alert alert-success alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert"
-					aria-hidden="true">&times;</button>
-				${succ}
+						aria-hidden="true">&times;</button>
+					${succ}
 			</div>
 		</c:if>
 		<c:if test="${!empty error}">
 			<div class="alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert"
-					aria-hidden="true">&times;</button>
-				${error}
+						aria-hidden="true">&times;</button>
+					${error}
 			</div>
 		</c:if>
 	</div>

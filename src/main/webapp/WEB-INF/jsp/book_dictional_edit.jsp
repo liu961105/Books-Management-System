@@ -64,11 +64,6 @@ body {
 							class="form-control" name="classId" id="classId"
 							value="${detail.classId}">
 					</div>
-					<div class="input-group">
-						<span class="input-group-addon">书架号</span> <input type="text"
-							class="form-control" name="pressmark" id="pressmark"
-							value="${detail.pressmark}">
-					</div>
 					<input type="submit" value="确定" class="btn btn-success btn-sm"
 						class="text-left">
 					<script>
@@ -76,7 +71,7 @@ body {
 							return flag;
 						}
 						$("#addbook").submit(function() {
-							if ($("#name").val() == '' || $("#author").val() == '' || $("#publish").val() == '' || $("#isbn").val() == '' || $("#introduction").val() == '' || $("#language").val() == '' || $("#price").val() == '' || $("#pubdate").val() == '' || $("#classId").val() == '' || $("#pressmark").val() == '' || $("#state").val() == '') {
+							if ($("#name").val() == '' || $("#author").val() == '' || $("#publish").val() == '' || $("#isbn").val() == '' || $("#introduction").val() == '' || $("#language").val() == '' || $("#price").val() == '' || $("#pubdate").val() == '' || $("#classId").val() == '' ||  $("#state").val() == '') {
 								alert("请填入完整图书信息！");
 								return mySubmit(false);
 							}

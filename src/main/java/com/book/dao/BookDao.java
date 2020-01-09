@@ -26,12 +26,16 @@ public class BookDao {
     private final static String ADD_BOOK_SQL="INSERT INTO book_info VALUES(NULL ,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     private final static String DELETE_BOOK_SQL="delete from book_info where book_id = ?  ";
     private final static String EDIT_BOOK_SQL="update book_info set name= ? ,author= ? ,publish= ? ,ISBN= ? ,introduction= ? ,language= ? ,price= ? ,pubdate= ? ,class_id= ? ,pressmark= ? ,state= ? ,number= ?,in_number = ?  where book_id= ?  ";
+
+    private final static String ADD_BOOKNUMBER = "update book_info set number =number + ?,in_number = in_number + ? where  isbn = ? ";
     private final static String QUERY_ALL_BOOKS_SQL="SELECT * FROM book_info ";
     private final static String QUERY_BOOK_SQL="SELECT * FROM book_info WHERE book_id like  ?  or name like ?   or ISBN like ? ";
     //查询匹配图书的个数
     private final static String MATCH_BOOK_SQL="SELECT count(*) FROM book_info WHERE book_id like ?  or name like ?  or ISBN like ?  ";
     //根据书号查询图书
     private final static String GET_BOOK_SQL="SELECT * FROM book_info where book_id = ? ";
+
+    private final  static String FINDBYISBN = "select * from book_info where isbn = ?";
     
 
     public int matchBook(String searchWord){
@@ -166,4 +170,32 @@ public class BookDao {
         return jdbcTemplate.update(EDIT_BOOK_SQL,new Object[]{name,author,publish,isbn,introduction,language,price,pubdate,classId,pressmark,state,number,number,bookId});
     }
 
+    public Book findByISBN(String isbn) {
+        final Book book =new Book();
+        jdbcTemplate.query(FINDBYISBN, new Object[]{isbn}, new RowCallbackHandler() {
+            public void processRow(ResultSet resultSet) throws SQLException {
+                book.setAuthor(resultSet.getString("author"));
+                book.setBookId(resultSet.getLong("book_id"));
+                book.setClassId(resultSet.getString("class_id"));
+                book.setIntroduction(resultSet.getString("introduction"));
+                book.setIsbn(resultSet.getString("isbn"));
+                book.setLanguage(resultSet.getString("language"));
+                book.setName(resultSet.getString("name"));
+                book.setPressmark(resultSet.getString("pressmark"));
+                book.setPubdate(resultSet.getDate("pubdate"));
+                book.setPrice(resultSet.getBigDecimal("price"));
+                book.setState(resultSet.getInt("state"));
+                book.setPublish(resultSet.getString("publish"));
+                book.setNumber(resultSet.getInt("number"));
+                book.setInNumber(resultSet.getInt("in_number"));
+                book.setLendNumber(resultSet.getInt("lend_number"));
+            }
+
+        });
+        return book;
+    }
+
+    public void addBookNumber(String isbn, Integer number) {
+        jdbcTemplate.update(ADD_BOOKNUMBER,new Object[]{number,number,isbn});
+    }
 }
