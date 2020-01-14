@@ -63,12 +63,12 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="pressmark">第几排</label> <input type="text"
+            <label for="row">第几排</label> <input type="text"
                                                       class="form-control" name="row" id="row"
                                                       placeholder="请输入书放在第几排">
         </div>
         <div class="form-group">
-            <label for="pressmark">第几列</label> <input type="text"
+            <label for="column">第几列</label> <input type="text"
                                                       class="form-control" name="column" id="column"
                                                       placeholder="请输入书放在第几列">
         </div>
