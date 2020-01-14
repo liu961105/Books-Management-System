@@ -52,16 +52,25 @@
                                                      class="form-control" name="pubdate" id="pubdate">
         </div>
         <div class="form-group">
-            <label for="classId">分类号</label> <select class="form-control"
-                                                     name="classId" id="classId">
-            <option>请选择分类号</option>
+            <label for="classId">分类号</label>
+            <input class="form-control" name="classId" id="classId">
 
-        </select>
         </div>
         <div class="form-group">
-            <label for="pressmark">书架号</label> <input type="text"
-                                                      class="form-control" name="pressmark" id="pressmark"
-                                                      placeholder="请输入书架号">
+            <label for="pressmark">书架号</label>
+            <select id="pressmark" name="pressmark" class="form-control">
+                <option>请选择书架号</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="pressmark">第几排</label> <input type="text"
+                                                      class="form-control" name="row" id="row"
+                                                      placeholder="请输入书放在第几排">
+        </div>
+        <div class="form-group">
+            <label for="pressmark">第几列</label> <input type="text"
+                                                      class="form-control" name="column" id="column"
+                                                      placeholder="请输入书放在第几列">
         </div>
         <div class="form-group">
             <label for="state">状态</label> <select class="form-control"
@@ -72,9 +81,9 @@
         </select>
         </div>
         <div class="form-group">
-            <label for="pressmark">总数量</label> <input type="text"
-                                                      class="form-control" name="number" id="number"
-                                                      placeholder="请输入数量">
+            <label for="number">总数量</label> <input type="text"
+                                                   class="form-control" name="number" id="number"
+                                                   placeholder="请输入数量">
         </div>
 
         <input type="submit" value="添加" class="btn btn-success btn-sm"
@@ -143,15 +152,15 @@
             });
         });
         $(function () {
-            getClassInfo();
             getLanguage();
+            getClassInfo();
         })
 
         function getClassInfo() {
-            $.post("${ctx}/classInfo/findClassInfos", {}, function (res) {
+            $.post("${ctx}/findBookPressmark", {}, function (res) {
                 if (res.success == '1') {
                     for (var i = 0; i < res.data.length; i++) {
-                        $("#classId").append('<option value="' + res.data[i].classId + '">' + res.data[i].className + '</option>');
+                        $("#pressmark").append('<option value="' + res.data[i].id + '">' + res.data[i].code + '</option>');
                     }
                 }
             })
@@ -190,6 +199,7 @@
                     $("#classId").val(res.data.classId)
                     $("#pressmark").val(res.data.pressmark)
                     $("#state").val(res.data.state)
+                    $("#classId").val(res.data.classId);
                 } else {
                     layer.msg("暂未收录此书,请前往基础数据管理维护", {
                         icon: 5

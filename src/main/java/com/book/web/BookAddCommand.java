@@ -1,5 +1,8 @@
 package com.book.web;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +26,15 @@ public class BookAddCommand {
     private Integer number;
     private Integer inNumber;
     private Integer lendNumber;
+    @Getter
+    @Setter
+    private String BookSource;
+    @Getter
+    @Setter
+    private String row;
+    @Getter
+    @Setter
+    private String column;
 
     public void setName(String name) {
         this.name = name;

@@ -10,13 +10,13 @@ public interface BookDictionariesService {
 	/**
 	 * 图书字典跳转
 	 */
-	public  List<BookDictionaries> getDictionaries();
+	List<BookDictionaries> getDictionaries();
 
-	public int save(BookDictionaries bookDictionaries);
+	 int save(BookDictionaries bookDictionaries);
 
-	public BookDictionaries checkISBN(String isbn);
+	 BookDictionaries checkISBN(String isbn);
 
-	public BookDictionaries findById(String id);
+	 BookDictionaries findById(String id);
 
-	public boolean editBook(BookDictionaries book);
+	boolean editBook(BookDictionaries book);
  }

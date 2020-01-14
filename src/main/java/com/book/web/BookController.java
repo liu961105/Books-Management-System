@@ -46,7 +46,7 @@ public class BookController extends BaseController {
     }
 
     @RequestMapping("/querybook.html")
-    public ModelAndView queryBookDo(HttpServletRequest request, String searchWord, String searchISBN) {
+    public ModelAndView queryBookDo( String searchWord, String searchISBN) {
         boolean exist = bookService.matchBook(searchWord, searchISBN);
         if (exist) {
             ArrayList<Book> books = bookService.queryBook(searchWord, searchISBN);
@@ -136,34 +136,35 @@ public class BookController extends BaseController {
         /*
          *新增查询是否已经新增过，如果有则只增加数量
          */
-        Book byISBN = bookService.findByISBN(bookAddCommand.getIsbn());
-        if (byISBN.getIsbn() != null) {
-            bookService.addBookNumber(byISBN.getIsbn(), bookAddCommand.getNumber());
-        } else {
-            Book book = new Book();
-            book.setBookId(0);
-            book.setPrice(bookAddCommand.getPrice());
-            book.setState(bookAddCommand.getState());
-            book.setPublish(bookAddCommand.getPublish());
-            book.setPubdate(bookAddCommand.getPubdate());
-            book.setName(bookAddCommand.getName());
-            book.setIsbn(bookAddCommand.getIsbn());
-            book.setClassId(bookAddCommand.getClassId());
-            book.setAuthor(bookAddCommand.getAuthor());
-            book.setIntroduction(bookAddCommand.getIntroduction());
-            book.setPressmark(bookAddCommand.getPressmark());
-            book.setLanguage(bookAddCommand.getLanguage());
-            book.setNumber(bookAddCommand.getNumber());
-            book.setInNumber(bookAddCommand.getInNumber());
-            book.setLendNumber(0);
-            boolean succ = bookService.addBook(book);
-            if (succ) {
+        Book book = new Book();
+        book.setBookId(0);
+        book.setPrice(bookAddCommand.getPrice());
+        book.setState(bookAddCommand.getState());
+        book.setPublish(bookAddCommand.getPublish());
+        book.setPubdate(bookAddCommand.getPubdate());
+        book.setName(bookAddCommand.getName());
+        book.setIsbn(bookAddCommand.getIsbn());
+        book.setClassId(bookAddCommand.getClassId());
+        book.setAuthor(bookAddCommand.getAuthor());
+        book.setIntroduction(bookAddCommand.getIntroduction());
+        book.setPressmark(bookAddCommand.getPressmark());
+        book.setLanguage(bookAddCommand.getLanguage());
+        book.setNumber(1);
+        book.setInNumber(1);
+        book.setLendNumber(0);
+        book.setRow(bookAddCommand.getRow());
+        book.setColumn(bookAddCommand.getColumn());
+        for (int i = 0; i < bookAddCommand.getNumber(); i++) {
+            boolean success = bookService.addBook(book);
+            if (success) {
                 redirectAttributes.addFlashAttribute("succ", "图书添加成功！");
             } else {
                 redirectAttributes.addFlashAttribute("succ", "图书添加失败！");
 
             }
+
         }
+
         return "redirect:/allbooks.html";
     }
 
@@ -194,6 +195,8 @@ public class BookController extends BaseController {
         book.setPressmark(bookAddCommand.getPressmark());
         book.setLanguage(bookAddCommand.getLanguage());
         book.setNumber(bookAddCommand.getNumber());
+        book.setRow(bookAddCommand.getRow());
+        book.setColumn(bookAddCommand.getColumn());
         boolean succ = bookService.editBook(book);
         if (succ) {
             redirectAttributes.addFlashAttribute("succ", "图书修改成功！");
@@ -278,6 +281,21 @@ public class BookController extends BaseController {
             e.printStackTrace();
             res.setSuccess(ERROR);
             res.setMessage(GET_ERROR + ":" + e.getMessage());
+        }
+        return res;
+    }
+
+    @RequestMapping("findBook")
+    @ResponseBody
+    public ResultEntity findBook(String bookId) {
+        ResultEntity res = new  ResultEntity();
+        try {
+            Book book = bookService.getBook(Long.parseLong(bookId));
+            res.setData(book);
+            res.setSuccess(SUCCESS);
+        }catch (Exception e){
+            res.setSuccess(ERROR);
+            res.setMessage("系统异常!"+e.getMessage());
         }
         return res;
     }

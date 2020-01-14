@@ -59,7 +59,7 @@ public class LendController extends BaseController {
         long bookId = Integer.parseInt(request.getParameter("id"));
         Admin admin = (Admin) request.getSession().getAttribute("admin");
         Book book = bookService.getBook(bookId);
-        boolean lendsucc = lendService.bookLend(bookId, readerId, borrowingDay, bookName, readerName, returnDate,book.getPublish(),admin.getAdminId());
+        boolean lendsucc = lendService.bookLend(bookId, readerId, borrowingDay, bookName, readerName, returnDate, book.getPublish(), admin.getAdminId());
         if (lendsucc) {
             redirectAttributes.addFlashAttribute("succ", "图书借阅成功！");
             return "redirect:/allbooks.html";

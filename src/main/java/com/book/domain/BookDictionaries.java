@@ -1,5 +1,8 @@
 package com.book.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -22,6 +25,11 @@ public class BookDictionaries {
 	private Date pubdate;
 	private String classId;
 	private int state;
+
+	//新增字段
+	@Getter
+	@Setter
+	private String bookSource;
 
 	public String getId() {
 		return id;

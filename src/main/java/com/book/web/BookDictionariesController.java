@@ -62,6 +62,7 @@ public class BookDictionariesController extends BaseController {
 		bookDictionaries.setAuthor(bookAddCommand.getAuthor());
 		bookDictionaries.setIntroduction(bookAddCommand.getIntroduction());
 		bookDictionaries.setLanguage(bookAddCommand.getLanguage());
+		bookDictionaries.setBookSource(bookAddCommand.getBookSource());
 		int success = bookDictionariesService.save(bookDictionaries);
 		if (success > 0) {
 			redirectAttributes.addFlashAttribute("succ", "添加成功！");
@@ -110,6 +111,7 @@ public class BookDictionariesController extends BaseController {
 		book.setAuthor(bookAddCommand.getAuthor());
 		book.setIntroduction(bookAddCommand.getIntroduction());
 		book.setLanguage(bookAddCommand.getLanguage());
+		book.setBookSource(bookAddCommand.getBookSource());
 		boolean succ = bookDictionariesService.editBook(book);
 		if (succ) {
 			redirectAttributes.addFlashAttribute("succ", "图书修改成功！");

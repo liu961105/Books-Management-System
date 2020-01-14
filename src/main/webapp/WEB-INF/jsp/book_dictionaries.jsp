@@ -116,9 +116,6 @@ body {
 							<div class="layui-upload">
 								<label id="tsbm" style="font-size: 30px"></label>
 							</div>
-							<div class = "layui-upload" style="margin-top: 10px">
-								<label id = "flbm" style="font-size: 30px"></label>
-							</div>
 						</div>
 					</div>
 					<div class="layui-form-item" style="margin-top: 35px;">

@@ -22,11 +22,11 @@ public class BookDictionariesDao {
     private JdbcTemplate jdbcTemplate;
 
     private final static String DELETE_BOOK_SQL = "delete from book_info where book_id = ?  ";
-    private final static String EDIT_BOOK_SQL = "update book_dictionaries set name= ? ,author= ? ,publish= ? ,ISBN= ? ,introduction= ? ,language= ? ,price= ? ,pubdate= ? ,class_id= ?,state= ?   where id= ?  ";
+    private final static String EDIT_BOOK_SQL = "update book_dictionaries set name= ? ,author= ? ,publish= ? ,ISBN= ? ,introduction= ? ,language= ? ,price= ? ,pubdate= ? ,class_id= ?,state= ?,book_source = ?   where id= ?  ";
 
     private final static String QUERY_ALL_BOOKS_SQL = "SELECT * FROM book_dictionaries";
 
-    private final static String ADD_BOOK_SQL = "INSERT INTO book_dictionaries VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+    private final static String ADD_BOOK_SQL = "INSERT INTO book_dictionaries VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
     private final static String GET_BOOK_SQL = "SELECT * FROM book_dictionaries where ISBN = ? ";
 
@@ -56,6 +56,7 @@ public class BookDictionariesDao {
                     bookDictionaries.setPubdate(rs.getDate("pubdate"));
                     bookDictionaries.setName(rs.getString("name"));
                     bookDictionaries.setIsbn(rs.getString("isbn"));
+                    bookDictionaries.setBookSource(rs.getString("book_source"));
                     books.add(bookDictionaries);
                 }
             }
@@ -68,7 +69,7 @@ public class BookDictionariesDao {
                 new Object[]{UUIDUtil.expordUuid(), bookDictionaries.getBookId(), bookDictionaries.getName(),
                         bookDictionaries.getAuthor(), bookDictionaries.getPublish(), bookDictionaries.getIsbn(),
                         bookDictionaries.getIntroduction(), bookDictionaries.getLanguage(), bookDictionaries.getPrice(), bookDictionaries.getPubdate(), bookDictionaries.getClassId(),
-                        "1"});
+                        "1",bookDictionaries.getBookSource()});
     }
 
     public BookDictionaries checkISBN(String isbn) {
@@ -89,6 +90,7 @@ public class BookDictionariesDao {
                 bookDictionaries.setPrice(resultSet.getBigDecimal("price"));
                 bookDictionaries.setState(resultSet.getInt("state"));
                 bookDictionaries.setPublish(resultSet.getString("publish"));
+                bookDictionaries.setBookSource(resultSet.getString("book_source"));
             }
 
         });
@@ -128,6 +130,6 @@ public class BookDictionariesDao {
         Date pubdate = book.getPubdate();
         String classId = book.getClassId();
         int state = book.getState();
-        return jdbcTemplate.update(EDIT_BOOK_SQL, new Object[]{name, author, publish, isbn, introduction, language, price, pubdate, classId, state, id});
+        return jdbcTemplate.update(EDIT_BOOK_SQL, new Object[]{name, author, publish, isbn, introduction, language, price, pubdate, classId, state,book.getBookSource(), id});
     }
 }

@@ -1,5 +1,8 @@
 package com.book.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -23,6 +26,13 @@ public class Book implements Serializable{
     private Integer number;
     private Integer inNumber;
     private Integer lendNumber;
+    @Getter
+    @Setter
+    private String row;
+    @Getter
+    @Setter
+    private String column;
+
 
     public void setName(String name) {
         this.name = name;
