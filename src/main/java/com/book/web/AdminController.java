@@ -1,10 +1,19 @@
 package com.book.web;
 
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.metadata.Sheet;
+import com.alibaba.excel.metadata.Table;
+import com.alibaba.excel.support.ExcelTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -96,6 +105,48 @@ public class AdminController extends BaseController {
 			e.printStackTrace();
 		}
 		return "redirect:/admin/allAdmin";
+	}
+	@RequestMapping("writeExcel")
+	@ResponseBody
+	public void writeExcel(HttpServletResponse response) throws Exception {
+		File file = new File("E:\\\\temp\\\\withoutHead1.xlsx");
+		OutputStream outputStream = new FileOutputStream(file);
+		ExcelWriter excelWriter = new ExcelWriter(getOutputStream("下载",response), ExcelTypeEnum.XLSX);
+		Sheet sheet = new Sheet(1,0);
+		sheet.setSheetName("sheet1");
+		Table table = new Table(1);
+		List<List<String >> titles = new ArrayList<>();
+		titles.add(Arrays.asList("用户ID"));
+		titles.add(Arrays.asList("名称"));
+		titles.add(Arrays.asList("年龄"));
+		titles.add(Arrays.asList("生日"));
+		table.setHead(titles);
+		List<List<String>> userList = new ArrayList<>();
+
+		for (int i = 0; i < 100; i++) {
+
+			userList.add(Arrays.asList("ID_" + i, "小明" + i, String.valueOf(i), new Date().toString()));
+
+		}
+
+		excelWriter.write0(userList, sheet, table);
+
+		excelWriter.finish();
+
+ 	}
+	private static OutputStream getOutputStream(String fileName, HttpServletResponse response) throws Exception {
+		try {
+			fileName = URLEncoder.encode(fileName, "UTF-8");
+			response.setContentType("application/vnd.ms-excel");
+			response.setCharacterEncoding("utf8");
+			response.setHeader("Content-Disposition", "attachment; filename=" + fileName + ".xlsx");
+			response.setHeader("Pragma", "public");
+			response.setHeader("Cache-Control", "no-store");
+			response.addHeader("Cache-Control", "max-age=0");
+			return response.getOutputStream();
+		} catch (IOException e) {
+			throw new Exception("导出excel表格失败!", e);
+		}
 	}
 
 }
