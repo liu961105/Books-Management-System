@@ -160,7 +160,7 @@
             $.post("${ctx}/findBookPressmark", {}, function (res) {
                 if (res.success == '1') {
                     for (var i = 0; i < res.data.length; i++) {
-                        $("#pressmark").append('<option value="' + res.data[i].id + '">' + res.data[i].code + '</option>');
+                        $("#pressmark").append('<option value="' + res.data[i].code + '">' + res.data[i].code + '</option>');
                     }
                 }
             })
